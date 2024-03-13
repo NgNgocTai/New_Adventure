@@ -41,26 +41,26 @@ bool init() {
     return true;
 }
 
-// Tạo texture từ một đường dẫn hình ảnh(0 sửa hàm này)
-// hàm này chuyển 1 SDL_Surface ==> SDL_Texture để rồi sau đó render ra màn bằng câu lệnh SDL_RenderCopy()
+// Tạo texture từ một đường dẫn hình ảnh
 SDL_Texture* loadTexture(std::string path) {
     SDL_Texture* newTexture = NULL;
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str()); // load dữ liệu ảnh từ đường dẫn
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     } else {
-        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);// tạo texture từ ảnh đã load được (SDL_Surface ==>SDL_Texture)
+        // Xóa phông xanh cho nhân vật
+        SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 255, 0));
+
+        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
         if (newTexture == NULL) {
             printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
         }
-        SDL_FreeSurface(loadedSurface);// giải phóng dung lượng ảnh cũ
+        SDL_FreeSurface(loadedSurface);
     }
     return newTexture;
 }
 
 // Tải tất cả các tài nguyên cần thiết
-//Khi muốn thêm ảnh chỉ cần cập nhật hàm này
-//Tạo biến gAddTexture = loadTexture(link)==>check
 bool loadMedia() {
     bool success = true;
     // Tải texture cho nền
@@ -71,7 +71,7 @@ bool loadMedia() {
     }
 
     // Tải texture cho đối tượng
-    gObjectTexture = loadTexture("picture/human64x91.png");
+    gObjectTexture = loadTexture("human64x91.png");
     if (gObjectTexture == NULL) {
         printf("Failed to load object texture!\n");
         success = false;
