@@ -60,3 +60,29 @@ bool init() {
     return true;
 }
 
+bool loadMedia(std::string file_path) {
+    // Load image at specified path
+    gBackground = IMG_Load(file_path.c_str());
+    if (gBackground == NULL) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", file_path.c_str(), IMG_GetError());
+        return false;
+    }
+
+    return true;
+}
+
+void close() {
+    // Free loaded image
+    SDL_FreeSurface(gBackground);
+    gBackground = NULL;
+
+    // Destroy renderer and window
+    SDL_DestroyRenderer(gRenderer);
+    SDL_DestroyWindow(gWindow);
+    gWindow = NULL;
+    gRenderer = NULL;
+
+    // Quit SDL subsystems
+    IMG_Quit();
+    SDL_Quit();
+}
