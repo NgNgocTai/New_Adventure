@@ -3,54 +3,35 @@
 #include <stdio.h>
 #include <string>
 
-// Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-// Starts up SDL and creates window
-bool init();
+SDL_Window* gWindow = NULL; // Cửa sổ SDL
+SDL_Renderer* gRenderer = NULL; // Renderer SDL
+SDL_Texture* gBackgroundTexture = NULL; // Texture cho nền
+SDL_Texture* gObjectTexture = NULL; // Texture cho đối tượng
 
-// Loads media
-bool loadMedia(std::string file_path);
-
-// Frees media and shuts down SDL
-void close();
-
-// The window we'll be rendering to
-SDL_Window* gWindow = NULL;
-
-// The window renderer
-SDL_Renderer* gRenderer = NULL;
-
-// Surfaces for screen and background
-SDL_Surface* gScreen = NULL;
-SDL_Surface* gBackground = NULL;
-
+// Khởi tạo SDL và cửa sổ
 bool init() {
-    // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
         return false;
     }
 
-    // Create window
-    gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    gWindow = SDL_CreateWindow("SDL Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if (gWindow == NULL) {
         printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
         return false;
     }
 
-    // Create renderer for window
     gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
     if (gRenderer == NULL) {
         printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
         return false;
     }
 
-    // Initialize renderer color
     SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-    // Initialize PNG loading
     int imgFlags = IMG_INIT_PNG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
         printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
@@ -60,74 +41,86 @@ bool init() {
     return true;
 }
 
-bool loadMedia(std::string file_path) {
-    // Load image at specified path
-    gBackground = IMG_Load(file_path.c_str());
-    if (gBackground == NULL) {
-        printf("Unable to load image %s! SDL_image Error: %s\n", file_path.c_str(), IMG_GetError());
-        return false;
+// Tạo texture từ một đường dẫn hình ảnh(0 sửa hàm này)
+// hàm này chuyển 1 SDL_Surface ==> SDL_Texture để rồi sau đó render ra màn bằng câu lệnh SDL_RenderCopy()
+SDL_Texture* loadTexture(std::string path) {
+    SDL_Texture* newTexture = NULL;
+    SDL_Surface* loadedSurface = IMG_Load(path.c_str()); // load dữ liệu ảnh từ đường dẫn
+    if (loadedSurface == NULL) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+    } else {
+        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);// tạo texture từ ảnh đã load được (SDL_Surface ==>SDL_Texture)
+        if (newTexture == NULL) {
+            printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+        }
+        SDL_FreeSurface(loadedSurface);// giải phóng dung lượng ảnh cũ
     }
-
-    return true;
+    return newTexture;
 }
 
-void close() {
-    // Free loaded image
-    SDL_FreeSurface(gBackground);
-    gBackground = NULL;
+// Tải tất cả các tài nguyên cần thiết
+//Khi muốn thêm ảnh chỉ cần cập nhật hàm này
+//Tạo biến gAddTexture = loadTexture(link)==>check
+bool loadMedia() {
+    bool success = true;
+    // Tải texture cho nền
+    gBackgroundTexture = loadTexture("picture/bg2.png");
+    if (gBackgroundTexture == NULL) {
+        printf("Failed to load background texture!\n");
+        success = false;
+    }
 
-    // Destroy renderer and window
+    // Tải texture cho đối tượng
+    gObjectTexture = loadTexture("picture/human64x91.png");
+    if (gObjectTexture == NULL) {
+        printf("Failed to load object texture!\n");
+        success = false;
+    }
+
+    return success;
+}
+
+// Giải phóng bộ nhớ và thoát khỏi SDL
+void close() {
+    SDL_DestroyTexture(gBackgroundTexture);
+    gBackgroundTexture = NULL;
+
+    SDL_DestroyTexture(gObjectTexture);
+    gObjectTexture = NULL;
+
     SDL_DestroyRenderer(gRenderer);
-    SDL_DestroyWindow(gWindow);
-    gWindow = NULL;
     gRenderer = NULL;
 
-    // Quit SDL subsystems
+    SDL_DestroyWindow(gWindow);
+    gWindow = NULL;
+
     IMG_Quit();
     SDL_Quit();
 }
 
+// Hàm chính
 int main(int argc, char* argv[]) {
-    // Start up SDL and create window
     if (!init()) {
         printf("Failed to initialize!\n");
     } else {
-        // Load media
-        if (!loadMedia("picture/bg2.png")) {
+        if (!loadMedia()) {
             printf("Failed to load media!\n");
         } else {
-            // Main loop flag
             bool quit = false;
-
-            // Event handler
             SDL_Event e;
-
-            // Main loop
             while (!quit) {
-                // Handle events on queue
                 while (SDL_PollEvent(&e) != 0) {
-                    // User requests quit
                     if (e.type == SDL_QUIT) {
                         quit = true;
                     }
                 }
-
-                // Clear the screen
                 SDL_RenderClear(gRenderer);
-
-                // Render background texture
-                SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(gRenderer, gBackground);
-                SDL_RenderCopy(gRenderer, backgroundTexture, NULL, NULL);
-                SDL_DestroyTexture(backgroundTexture);
-
-                // Update the screen
-                SDL_RenderPresent(gRenderer);
+                SDL_RenderCopy(gRenderer, gBackgroundTexture, NULL, NULL); // Render texture cho nền
+                SDL_RenderCopy(gRenderer, gObjectTexture, NULL, NULL); // Render texture cho đối tượng
+                SDL_RenderPresent(gRenderer); // Hiển thị renderer
             }
         }
     }
-
-    // Free resources and close SDL
-    close();
-
+    close(); // Đóng SDL
     return 0;
 }
