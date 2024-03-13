@@ -86,3 +86,48 @@ void close() {
     IMG_Quit();
     SDL_Quit();
 }
+
+int main(int argc, char* argv[]) {
+    // Start up SDL and create window
+    if (!init()) {
+        printf("Failed to initialize!\n");
+    } else {
+        // Load media
+        if (!loadMedia("picture/bg2.png")) {
+            printf("Failed to load media!\n");
+        } else {
+            // Main loop flag
+            bool quit = false;
+
+            // Event handler
+            SDL_Event e;
+
+            // Main loop
+            while (!quit) {
+                // Handle events on queue
+                while (SDL_PollEvent(&e) != 0) {
+                    // User requests quit
+                    if (e.type == SDL_QUIT) {
+                        quit = true;
+                    }
+                }
+
+                // Clear the screen
+                SDL_RenderClear(gRenderer);
+
+                // Render background texture
+                SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(gRenderer, gBackground);
+                SDL_RenderCopy(gRenderer, backgroundTexture, NULL, NULL);
+                SDL_DestroyTexture(backgroundTexture);
+
+                // Update the screen
+                SDL_RenderPresent(gRenderer);
+            }
+        }
+    }
+
+    // Free resources and close SDL
+    close();
+
+    return 0;
+}
