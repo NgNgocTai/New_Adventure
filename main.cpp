@@ -67,14 +67,14 @@ SDL_Texture* loadTexture(std::string path) {
 bool loadMedia() {
     bool success = true;
     // Tải texture cho nền
-    gBackgroundTexture = loadTexture("picture/bg2.png");
+    gBackgroundTexture = loadTexture("picture/bg1.png");
     if (gBackgroundTexture == NULL) {
         printf("Failed to  load background texture!\n");
         success = false;
     }
 
     // Tải texture cho đối tượng
-    gObjectTexture = loadTexture("picture/human64x91.png");
+    gObjectTexture = loadTexture("picture/plane_fly1.png");
     if (gObjectTexture == NULL) {
         printf("Failed to load object texture!\n");
         success = false;

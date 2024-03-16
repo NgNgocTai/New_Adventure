@@ -430,11 +430,13 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1710305492 source:c:\users\admin\desktop\game_project\main.cpp
+1710578540 source:c:\users\admin\desktop\game_project\main.cpp
 	<SDL.h>
+	<SDL_image.h>
 	<stdio.h>
-	"BaseObject.h"
-	"Common_Function.h"
+	<string>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
 
 1710314790 source:c:\users\admin\desktop\game_project\common_function.cpp
 
