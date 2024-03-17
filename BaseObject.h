@@ -18,7 +18,7 @@ public:
     SDL_Rect GetRect() const; // Lấy vị trí của đối tượng
     SDL_Texture* GetObject() const; // Lấy con trỏ đến texture của đối tượng
 
-private:
+protected:
     SDL_Texture* p_object_; // Texture của đối tượng
     SDL_Rect rect_; // Vị trí và kích thước của đối tượng
 };

@@ -46,6 +46,8 @@
 		<Unit filename="BaseObject.h" />
 		<Unit filename="Common_Function.cpp" />
 		<Unit filename="Common_Function.h" />
+		<Unit filename="MainObject.cpp" />
+		<Unit filename="MainObject.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>

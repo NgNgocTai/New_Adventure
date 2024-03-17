@@ -19,9 +19,9 @@ extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 
 // Màu chính làm màu nền trong hình ảnh
-static const int COLOR_KEY_R = 167;
-static const int COLOR_KEY_G = 175;
-static const int COLOR_KEY_B = 180;
+static const int COLOR_KEY_R = 0;
+static const int COLOR_KEY_G = 0xff;
+static const int COLOR_KEY_B = 0xff;
 
 // Hàm khởi tạo và giải phóng
 bool init(); // Khởi tạo SDL và cửa sổ
