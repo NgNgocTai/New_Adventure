@@ -1,4 +1,3 @@
-
 #ifndef COMMONFUNC_H
 #define COMMONFUNC_H
 
@@ -25,7 +24,7 @@ static const int COLOR_KEY_B = 0xff;
 
 // Hàm khởi tạo và giải phóng
 bool init(); // Khởi tạo SDL và cửa sổ
-SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh
+SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh (giong loadImage)
 bool loadMedia(); // Tải tất cả các tài nguyên cần thiết
 void close(); // Giải phóng bộ nhớ và thoát khỏi SDL
 
