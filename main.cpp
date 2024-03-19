@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 
         // Update screen
         SDL_RenderPresent(gRenderer);
-
+        SDL_Delay(12);
     }
 
     // Giải phóng các resource và đóng SDL
