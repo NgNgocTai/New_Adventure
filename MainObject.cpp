@@ -12,7 +12,7 @@ MainObject::MainObject()
     // Đặt vận tốc ban đầu bằng 0
     x_val_ = 0;
     y_val_ = 0;
-    speed = 2;
+    speed = 3;
 }
 
 MainObject::~MainObject()
@@ -64,8 +64,14 @@ void MainObject::HandleInputAction(SDL_Event events) // Xử lý sự kiện đ�
         }
     }
     // Xử lý sự kiện từ chuột
-    else if (events.type == SDL_MOUSEBUTTONDOWN) {}
-    else if (events.type == SDL_MOUSEBUTTONUP) {}
+    else if (events.type == SDL_MOUSEBUTTONDOWN)
+    {
+
+    }
+    else if (events.type == SDL_MOUSEBUTTONUP)
+    {
+
+    }
     else { ; } // Không thực hiện hành động nào cho các loại sự kiện khác
 }
 

@@ -51,11 +51,12 @@ void BaseObject::free() {
         rect_.h = 0;
     }
 }
-
-void BaseObject::Render(SDL_Renderer* des, const SDL_Rect* clip) {
+// SDL_Rect* : phần trên màn bạn muốn vẽ, nếu là NULL thì toàn bộ Texture được vẽ
+//SDL_Rect : lưu vị trí x,y và kích thước w,h hình muốn vẽ
+void BaseObject::Render(SDL_Renderer* render, const SDL_Rect* clip) {
     // Render đối tượng lên màn hình
     SDL_Rect renderquad = {rect_.x, rect_.y, rect_.w, rect_.h};
-    SDL_RenderCopy(des, p_object_, clip, &renderquad);
+    SDL_RenderCopy(render, p_object_, clip, &renderquad);
 }
 
 void BaseObject::SetRect(const int& x, const int& y) {

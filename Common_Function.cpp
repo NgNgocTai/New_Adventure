@@ -47,7 +47,6 @@ SDL_Texture* loadTexture(std::string path) {
     if (loadedSurface == NULL) {
         printf("Không thể tải ảnh %s! Lỗi SDL_image: %s\n", path.c_str(), IMG_GetError());
     } else {
-        // Tạo texture từ surface
         newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
         if (newTexture == NULL) {
             printf("Không thể tạo texture từ %s! Lỗi SDL: %s\n", path.c_str(), SDL_GetError());

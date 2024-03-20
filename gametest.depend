@@ -430,17 +430,17 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1710778834 source:c:\users\admin\desktop\game_project\main.cpp
+1710927018 source:c:\users\admin\desktop\game_project\main.cpp
 	<SDL.h>
 	<stdio.h>
 	"BaseObject.h"
 	"Common_Function.h"
 	"MainObject.h"
 
-1710778790 source:c:\users\admin\desktop\game_project\common_function.cpp
+1710926925 source:c:\users\admin\desktop\game_project\common_function.cpp
 	"Common_Function.h"
 
-1710778784 c:\users\admin\desktop\game_project\common_function.h
+1710926945 c:\users\admin\desktop\game_project\common_function.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -448,16 +448,24 @@
 	<windows.h>
 	<string>
 
-1710778785 c:\users\admin\desktop\game_project\baseobject.h
+1710926940 c:\users\admin\desktop\game_project\baseobject.h
 	"Common_Function.h"
 
-1710778791 source:c:\users\admin\desktop\game_project\baseobject.cpp
+1710926921 source:c:\users\admin\desktop\game_project\baseobject.cpp
 	"BaseObject.h"
 
-1710778787 source:c:\users\admin\desktop\game_project\mainobject.cpp
+1710926936 source:c:\users\admin\desktop\game_project\mainobject.cpp
 	"MainObject.h"
 
-1710778782 c:\users\admin\desktop\game_project\mainobject.h
+1710926949 c:\users\admin\desktop\game_project\mainobject.h
 	"Common_Function.h"
+	"BaseObject.h"
+	"AmoObject.h"
+	<vector>
+
+1710926994 source:c:\users\admin\desktop\game_project\amoobject.cpp
+	"AmoObject.h"
+
+1710926982 c:\users\admin\desktop\game_project\amoobject.h
 	"BaseObject.h"
 

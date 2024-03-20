@@ -6,7 +6,7 @@
 // Lớp BaseObject đại diện cho một đối tượng cơ bản trong trò chơi
 class BaseObject {
 public:
-    BaseObject(); // Constructor
+    BaseObject(); //   Constructor
     ~BaseObject(); // Destructor
 
     bool LoadImg(std::string path, SDL_Renderer* screen); // Tải hình ảnh và tạo texture

@@ -42,6 +42,8 @@
 			<Add directory="C:/SDL2_ttf-devel-2.21.1-mingw/SDL2_ttf-2.21.1/x86_64-w64-mingw32/lib" />
 			<Add directory="C:/SDL2_mixer-devel-2.6.2-mingw/SDL2_mixer-2.6.2/x86_64-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="AmoObject.cpp" />
+		<Unit filename="AmoObject.h" />
 		<Unit filename="BaseObject.cpp" />
 		<Unit filename="BaseObject.h" />
 		<Unit filename="Common_Function.cpp" />
