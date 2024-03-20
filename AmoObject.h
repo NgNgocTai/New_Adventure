@@ -29,6 +29,22 @@ public :
     AmoObject();
     ~AmoObject();
 
+     // Xử lý sự kiện nhập từ bàn phím
+    void HandleInputAction(SDL_Event events);
+
+    // Xử lý di chuyển của đạn
+    void HandleMove();
+
+    // Getter và setter cho loại đạn
+    int get_type() {return amo_type_;}
+    void set_type(const int& type){amo_type_ = type;}
+
+    // Getter và setter cho trạng thái di chuyển của đạn
+    bool get_is_move()  {return is_move_;}
+    void set_is_move(bool move) {is_move_ = move;}
+
+    // Thiết lập chiều rộng và chiều cao của đạn
+    void SetWidthHeight(const int& width, const int& height) {rect_.w = width; rect_.h = height;}
 
 private:
     int x_val_; // Giá trị tốc độ theo chiều ngang
