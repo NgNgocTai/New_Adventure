@@ -1,5 +1,4 @@
 
-
 #ifndef AMO_OBJECT_H
 #define AMO_OBJECT_H
 
@@ -29,7 +28,7 @@ public :
     AmoObject();
     ~AmoObject();
 
-     // Xử lý sự kiện nhập từ bàn phím
+    // Xử lý sự kiện nhập từ bàn phím
     void HandleInputAction(SDL_Event events);
 
     // Xử lý di chuyển của đạn

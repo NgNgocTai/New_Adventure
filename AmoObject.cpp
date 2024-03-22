@@ -1,7 +1,4 @@
 
-
-
-
 #include "AmoObject.h"
 
 AmoObject :: AmoObject()

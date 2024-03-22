@@ -66,7 +66,23 @@ void MainObject::HandleInputAction(SDL_Event events) // Xử lý sự kiện đ�
     // Xử lý sự kiện từ chuột
     else if (events.type == SDL_MOUSEBUTTONDOWN)
     {
+        AmoObject *p_amo  = new AmoObject();
+        if(events.button.button==SDL_BUTTON_LEFT)
+        {
+             p_amo->SetWidthHeight(WIDTH_LASER,HEIGHT_LASER);
+             //thíu loadImg
+             p_amo->set_type(AmoObject::LASER);
+        }
+        else if(events.button.button==SDL_BUTTON_RIGHT)
+        {
+             p_amo->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);
+             //thíu loadImg
+             p_amo->set_type(AmoObject::SPHERE);
+        }
+        p_amo ->SetRect(this->rect_.x + 80,this->rect_.y+22);
+        p_amo ->set_is_move(true);
 
+        p_amo_list.push_back(p_amo);
     }
     else if (events.type == SDL_MOUSEBUTTONUP)
     {
