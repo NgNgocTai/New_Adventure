@@ -3,7 +3,7 @@
 #include "BaseObject.h"
 #include "Common_Function.h"
 #include "MainObject.h"
-#include "AmoObject.h"
+
 int main(int argc, char* argv[]) {
     // Khởi tạo SDL
     if (!init()) {
@@ -46,6 +46,20 @@ int main(int argc, char* argv[]) {
         // Xử lý di chuyển của nhân vật
         plane_object.HandleMove();
 
+        //Xử lí phần di chuyển của đạn
+        for(int i=0;i<plane_object.GetAmoList().size();i++){
+            std::vector<AmoObject*>amo_list= plane_object.GetAmoList(); // gán vào biến khác cho tiện sử dụng
+            AmoObject* p_amo =amo_list.at(i);
+            if(p_amo!=NULL)
+            {
+                if(p_amo->get_is_move()==true)
+                   {
+                       p_amo->Render(gRenderer,NULL);
+                   }
+            }
+
+        }
+
         // Clear screen
         SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(gRenderer);
@@ -59,7 +73,6 @@ int main(int argc, char* argv[]) {
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
-
     }
 
     // Giải phóng các resource và đóng SDL

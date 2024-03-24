@@ -70,13 +70,13 @@ void MainObject::HandleInputAction(SDL_Event events) // Xử lý sự kiện đ�
         if(events.button.button==SDL_BUTTON_LEFT)
         {
              p_amo->SetWidthHeight(WIDTH_LASER,HEIGHT_LASER);
-             //thíu loadImg
+             //p_amo->LoadImg("laser.png", gRenderer);
              p_amo->set_type(AmoObject::LASER);
         }
         else if(events.button.button==SDL_BUTTON_RIGHT)
         {
              p_amo->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);
-             //thíu loadImg
+             //p_amo->LoadImg("sphere.png", gRenderer);
              p_amo->set_type(AmoObject::SPHERE);
         }
         p_amo ->SetRect(this->rect_.x + 80,this->rect_.y+22);
