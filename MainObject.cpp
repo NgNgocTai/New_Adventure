@@ -1,5 +1,5 @@
 #include "MainObject.h"
-
+#include "Common_Function.h"
 
 MainObject::MainObject()
 {
@@ -69,20 +69,23 @@ void MainObject::HandleInputAction(SDL_Event events) // Xử lý sự kiện đ�
         AmoObject *p_amo  = new AmoObject();
         if(events.button.button==SDL_BUTTON_LEFT)
         {
+
              p_amo->SetWidthHeight(WIDTH_LASER,HEIGHT_LASER);
-             //p_amo->LoadImg("laser.png", gRenderer);
+             p_amo->LoadImg("picture/laser.png",gRenderer);
              p_amo->set_type(AmoObject::LASER);
         }
         else if(events.button.button==SDL_BUTTON_RIGHT)
-        {
+         {
              p_amo->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);
-             //p_amo->LoadImg("sphere.png", gRenderer);
+             p_amo->LoadImg("picture/sphere.png",gRenderer);
              p_amo->set_type(AmoObject::SPHERE);
         }
-        p_amo ->SetRect(this->rect_.x + 80,this->rect_.y+22);
+        p_amo ->SetRect(this->rect_.x +WIDTH_MAIN_OBJECT-30 ,this->rect_.y+HEIGHT_MAIN_OBJECT*0.5);
+        p_amo ->set_x_val_(10);
         p_amo ->set_is_move(true);
 
         p_amo_list.push_back(p_amo);
+        p_amo->HandleMove(SCREEN_WIDTH, SCREEN_HEIGHT);
     }
     else if (events.type == SDL_MOUSEBUTTONUP)
     {
@@ -91,6 +94,28 @@ void MainObject::HandleInputAction(SDL_Event events) // Xử lý sự kiện đ�
     else { ; } // Không thực hiện hành động nào cho các loại sự kiện khác
 }
 
+void MainObject::HandleAmo(SDL_Renderer* des )
+{
+    for(int i=0;i<p_amo_list.size();i++){
+        AmoObject *p_amo = p_amo_list.at(i);
+        if(p_amo !=NULL){
+            if(p_amo->get_is_move()==true)
+            {
+               p_amo->HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);
+               p_amo->Render(des);
+
+            }
+            else
+            {
+                p_amo_list.erase(p_amo_list.begin()+i);
+                if(p_amo!=NULL)
+                {   delete p_amo;
+                    p_amo=NULL;
+                }
+            }
+        }
+    }
+}
 void MainObject::HandleMove()
 {
 

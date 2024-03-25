@@ -21,7 +21,8 @@ public:
     void HandleInputAction(SDL_Event events);
     void HandleMove();
     void SetAmoList(std::vector<AmoObject*>amo_list){p_amo_list=amo_list;}
-    std::vector<AmoObject*> GetAmoList() {return p_amo_list;}
+    void HandleAmo(SDL_Renderer* des );
+    std::vector<AmoObject*> GetAmoList() const {return p_amo_list;}
 private:
     //the hien cho su nhanh cham cua vat
     int x_val_;// gia tri tdoi theo chieu ngang(bien thien)
