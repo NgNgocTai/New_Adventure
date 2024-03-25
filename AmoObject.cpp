@@ -18,8 +18,10 @@ AmoObject :: ~AmoObject()
 
 }
 
-void AmoObject :: HandleMove()
+void AmoObject :: HandleMove(const int&x_border,const int&y_border)
 {
+    rect_.x+=x_val_;
+    if(rect_.x>x_border)is_move_=false;
 
 }
 
