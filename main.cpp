@@ -3,6 +3,7 @@
 #include "BaseObject.h"
 #include "Common_Function.h"
 #include "MainObject.h"
+#include "AmoObject.h"
 
 int main(int argc, char* argv[]) {
     // Khởi tạo SDL
@@ -28,7 +29,6 @@ int main(int argc, char* argv[]) {
     if (!ret2) return 0;
 
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
-    //plane_object.SetRectSize(WIDTH_MAIN_OBJECT, HEIGHT_MAIN_OBJECT); // Thiết lập kích thước cho hình ảnh
 
     // Main loop
     bool quit = false;
@@ -46,29 +46,19 @@ int main(int argc, char* argv[]) {
         // Xử lý di chuyển của nhân vật
         plane_object.HandleMove();
 
-        //Xử lí phần di chuyển của đạn
-        for(int i=0;i<plane_object.GetAmoList().size();i++){
-            std::vector<AmoObject*>amo_list= plane_object.GetAmoList(); // gán vào biến khác cho tiện sử dụng
-            AmoObject* p_amo =amo_list.at(i);
-            if(p_amo!=NULL)
-            {
-                if(p_amo->get_is_move()==true)
-                   {
-                       p_amo->Render(gRenderer,NULL);
-                   }
-            }
-
-        }
 
         // Clear screen
         SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(gRenderer);
 
         // Render background
-        background.Render(gRenderer, NULL);
+        background.Render(gRenderer);
 
         // Render character
-        plane_object.Render(gRenderer, NULL);
+        plane_object.Render(gRenderer);
+
+        // Xử lý di chuyển của các đạn( bắt buộc phải để sau background và plane_object)
+        plane_object.HandleAmo(gRenderer);
 
         // Update screen
         SDL_RenderPresent(gRenderer);
