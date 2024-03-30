@@ -10,6 +10,8 @@
 #define HEIGHT_THREAT 33
 class ThreatObject : public BaseObject
 {
+public:
+
     ThreatObject();
     ~ThreatObject();
     //Xu ly di chuyen

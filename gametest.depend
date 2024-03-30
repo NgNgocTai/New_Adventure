@@ -430,13 +430,14 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1711424796 source:c:\users\admin\desktop\game_project\main.cpp
+1711784149 source:c:\users\admin\desktop\game_project\main.cpp
 	<SDL.h>
 	<stdio.h>
 	"BaseObject.h"
 	"Common_Function.h"
 	"MainObject.h"
 	"AmoObject.h"
+	"ThreatObject.h"
 
 1711378281 source:c:\users\admin\desktop\game_project\common_function.cpp
 	"Common_Function.h"
@@ -471,4 +472,11 @@
 1711378350 c:\users\admin\desktop\game_project\amoobject.h
 	"BaseObject.h"
 	"Common_Function.h"
+
+1711784090 source:c:\users\admin\desktop\game_project\threatobject.cpp
+	"ThreatObject.h"
+
+1711783460 c:\users\admin\desktop\game_project\threatobject.h
+	"Common_Function.h"
+	"BaseObject.h"
 

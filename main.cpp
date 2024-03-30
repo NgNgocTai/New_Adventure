@@ -4,7 +4,7 @@
 #include "Common_Function.h"
 #include "MainObject.h"
 #include "AmoObject.h"
-
+#include "ThreatObject.h"
 int main(int argc, char* argv[]) {
     // Khởi tạo SDL
     if (!init()) {
@@ -27,8 +27,19 @@ int main(int argc, char* argv[]) {
     MainObject plane_object;
     bool ret2 = plane_object.LoadImg("picture/plane_fly1.png", gRenderer);
     if (!ret2) return 0;
-
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
+    //plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
+
+    //Tạo đối tượng hiểm họa
+    ThreatObject *p_threat =new ThreatObject();// Tạo mối hiểm họa mới
+    bool ret3 = p_threat->LoadImg("picture/threat.png",gRenderer);
+    if(!ret3)return 0;
+    p_threat->SetRect(SCREEN_WIDTH,SCREEN_HEIGHT*0.5);
+    p_threat->SetRect(SCREEN_WIDTH, rand()%300);// Set vị trí ngẫu nhiên đầu tiên
+    p_threat->set_x_val(3);
+
+
+
 
     // Main loop
     bool quit = false;
@@ -60,6 +71,9 @@ int main(int argc, char* argv[]) {
         // Xử lý di chuyển của các đạn( bắt buộc phải để sau background và plane_object)
         plane_object.HandleAmo(gRenderer);
 
+        //Render Threat
+        p_threat -> Render(gRenderer);
+        p_threat -> HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
