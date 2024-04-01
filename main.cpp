@@ -1,3 +1,4 @@
+
 #include <SDL.h>
 #include <stdio.h>
 #include "BaseObject.h"
@@ -6,6 +7,7 @@
 #include "AmoObject.h"
 #include "ThreatObject.h"
 int main(int argc, char* argv[]) {
+
     // Khởi tạo SDL
     if (!init()) {
         printf("Failed to initialize SDL!\n");
@@ -34,12 +36,10 @@ int main(int argc, char* argv[]) {
     ThreatObject *p_threat =new ThreatObject();// Tạo mối hiểm họa mới
     bool ret3 = p_threat->LoadImg("picture/threat.png",gRenderer);
     if(!ret3)return 0;
-    p_threat->SetRect(SCREEN_WIDTH,SCREEN_HEIGHT*0.5);
     p_threat->SetRect(SCREEN_WIDTH, rand()%300);// Set vị trí ngẫu nhiên đầu tiên
     p_threat->set_x_val(3);
 
-
-
+    p_threat ->CreateAmo();// Tạo Amo
 
     // Main loop
     bool quit = false;
@@ -72,8 +72,10 @@ int main(int argc, char* argv[]) {
         plane_object.HandleAmo(gRenderer);
 
         //Render Threat
-        p_threat -> Render(gRenderer);
-        p_threat -> HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);
+
+        p_threat -> Render(gRenderer);//Render ThreatObject
+        p_threat -> HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);// Xử lí di chuyển ThreatObject
+        p_threat -> FireAmo(gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT);// bắn đạn
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);

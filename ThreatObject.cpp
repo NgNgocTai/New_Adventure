@@ -33,7 +33,6 @@ void ThreatObject :: CreateAmo()
             p_amo ->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);// kích thước
             p_amo ->set_x_val_(10);//tốc độ đạn
             p_amo ->SetRect(this->rect_.x ,this->rect_.y+rect_.h*0.5);//vị trí viên đạn
-
             p_amo_list.push_back(p_amo);
         }
     }
