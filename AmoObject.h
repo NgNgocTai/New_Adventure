@@ -34,6 +34,9 @@ public :
     // Xử lý di chuyển của đạn
     void HandleMove(const int&x_border,const int&y_border);
 
+    // Xử lý di chuyển của đạn của địch
+    void HandleMove2();
+
     // Getter và setter cho loại đạn
     int get_type() const{return amo_type_;}
     void set_type(const int& type){amo_type_ = type;}

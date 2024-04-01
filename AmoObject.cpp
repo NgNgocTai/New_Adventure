@@ -17,12 +17,20 @@ AmoObject :: ~AmoObject()
 {
 
 }
-
+//Xử lí đạn của MainObject
 void AmoObject :: HandleMove(const int&x_border,const int&y_border)
 {
     rect_.x+=x_val_;
     if(rect_.x>x_border)is_move_=false;
 
+}
+
+ // Xử lý di chuyển của đạn địch
+void AmoObject :: HandleMove2()
+
+{
+    rect_.x -=x_val_;
+    if(rect_.x <0)is_move_=false;
 }
 
 void AmoObject:: HandleInputAction(SDL_Event events)
