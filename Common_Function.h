@@ -12,6 +12,7 @@
 static const int SCREEN_WIDTH = 1200;
 static const int SCREEN_HEIGHT = 600;
 static const int SCREEN_BPP = 32;
+static const int NUM_THREAT = 4;
 
 // Các biến toàn cục
 extern SDL_Window* gWindow;

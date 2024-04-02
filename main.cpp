@@ -32,15 +32,17 @@ int main(int argc, char* argv[]) {
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
     //plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
 
-    //Tạo đối tượng hiểm họa
-    ThreatObject *p_threat =new ThreatObject();// Tạo mối hiểm họa mới
-    bool ret3 = p_threat->LoadImg("picture/threat.png",gRenderer);
-    if(!ret3)return 0;
-    p_threat->SetRect(SCREEN_WIDTH, rand()%300);// Set vị trí ngẫu nhiên đầu tiên
-    p_threat->set_x_val(3);
-
-    p_threat ->CreateAmo();// Tạo Amo
-
+    //Tạo mảng các đối tượng hiểm họa
+    ThreatObject *p_threats = new ThreatObject [NUM_THREAT];
+    for(int i=0;i<NUM_THREAT;i++)
+    {
+        ThreatObject *p_threat =(p_threats +i);// Tạo mối hiểm họa mới
+        bool ret3 = p_threat->LoadImg("picture/threat.png",gRenderer);
+        if(!ret3)return 0;
+        p_threat->SetRect(SCREEN_WIDTH+ i*300, rand()%300);// Set vị trí ngẫu nhiên khác nhau cho từng Object
+        p_threat->set_x_val(3);
+        p_threat ->CreateAmo();// Tạo Amo
+    }
     // Main loop
     bool quit = false;
     SDL_Event e;
@@ -72,10 +74,16 @@ int main(int argc, char* argv[]) {
         plane_object.HandleAmo(gRenderer);
 
         //Render Threat
-
-        p_threat -> Render(gRenderer);//Render ThreatObject
-        p_threat -> HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);// Xử lí di chuyển ThreatObject
-        p_threat -> FireAmo(gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT);// bắn đạn
+        for(int i=0;i<NUM_THREAT;i++)
+       {
+            ThreatObject *p_threat = (p_threats+i);
+            if(p_threat!=NULL)
+           {
+                p_threat -> Render(gRenderer);//Render ThreatObject
+                p_threat -> HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);// Xử lí di chuyển ThreatObject
+                p_threat -> FireAmo(gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT);// bắn đạn
+           }
+       }
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
