@@ -1,5 +1,6 @@
 #include "BaseObject.h"
 
+bool is_run_screen =true;
 BaseObject::BaseObject() {
     // Khởi tạo con trỏ texture và khung hình rect
     p_object_ = NULL;
@@ -69,6 +70,20 @@ void BaseObject::SetRectSize(const int& w, const int& h) {
     // Thiết lập kích thước của rect
     rect_.w = w;
     rect_.h = h;
+}
+
+void BaseObject ::Move(){
+    if(is_run_screen)
+   {
+        rect_.x-=SCREEN_SPEED;
+        if(rect_.x<=-(WIDTH_BACKGROUND-SCREEN_WIDTH))
+        {
+            is_run_screen=false;
+
+        }
+
+   }
+
 }
 
 SDL_Rect BaseObject::GetRect() const {

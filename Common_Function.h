@@ -9,10 +9,15 @@
 #include <string>
 
 // Kích thước màn hình
+
+static const int WIDTH_BACKGROUND=4800;
+static const int HEIGHT_BACKGROUND=600;
 static const int SCREEN_WIDTH = 1200;
 static const int SCREEN_HEIGHT = 600;
 static const int SCREEN_BPP = 32;
-static const int NUM_THREAT = 4;
+static const int SCREEN_SPEED =2;
+
+const int NUM_THREAT = 4; // So luong ThreatObject;
 
 // Các biến toàn cục
 extern SDL_Window* gWindow;
@@ -22,6 +27,7 @@ extern SDL_Renderer* gRenderer;
 static const int COLOR_KEY_R = 0;
 static const int COLOR_KEY_G = 0xff;
 static const int COLOR_KEY_B = 0xff;
+
 
 // Hàm khởi tạo và giải phóng
 bool init(); // Khởi tạo SDL và cửa sổ

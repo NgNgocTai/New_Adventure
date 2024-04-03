@@ -1,4 +1,3 @@
-
 #include <SDL.h>
 #include <stdio.h>
 #include "BaseObject.h"
@@ -22,7 +21,7 @@ int main(int argc, char* argv[]) {
 
     // Tạo đối tượng background
     BaseObject background;
-    bool ret1 = background.LoadImg("picture/bg1.png", gRenderer);
+    bool ret1 = background.LoadImg("picture/bg4800.png", gRenderer);
     if (!ret1) return 0;
 
     // Tạo đối tượng nhân vật
@@ -32,17 +31,22 @@ int main(int argc, char* argv[]) {
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
     //plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
 
+
+
     //Tạo mảng các đối tượng hiểm họa
     ThreatObject *p_threats = new ThreatObject [NUM_THREAT];
     for(int i=0;i<NUM_THREAT;i++)
     {
-        ThreatObject *p_threat =(p_threats +i);// Tạo mối hiểm họa mới
+        ThreatObject *p_threat =(p_threats +i);//gán
+        if(p_threat!=NULL)
+    {
         bool ret3 = p_threat->LoadImg("picture/threat.png",gRenderer);
         if(!ret3)return 0;
-        p_threat->SetRect(SCREEN_WIDTH+ i*300, rand()%300);// Set vị trí ngẫu nhiên khác nhau cho từng Object
+        p_threat->SetRect(SCREEN_WIDTH+ i*320, rand()%300);// Set vị trí ngẫu nhiên khác nhau cho từng Object
         p_threat->set_x_val(3);
         p_threat ->CreateAmo();// Tạo Amo
     }
+      }
     // Main loop
     bool quit = false;
     SDL_Event e;
@@ -67,11 +71,19 @@ int main(int argc, char* argv[]) {
         // Render background
         background.Render(gRenderer);
 
+        // Xử lí background di chuyển
+
+        background.Move();
+
+
+
         // Render character
         plane_object.Render(gRenderer);
 
         // Xử lý di chuyển của các đạn( bắt buộc phải để sau background và plane_object)
         plane_object.HandleAmo(gRenderer);
+
+
 
         //Render Threat
         for(int i=0;i<NUM_THREAT;i++)
@@ -88,6 +100,7 @@ int main(int argc, char* argv[]) {
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
     }
+    delete [] p_threats;
 
     // Giải phóng các resource và đóng SDL
     close();
