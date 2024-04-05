@@ -33,6 +33,7 @@ static const int COLOR_KEY_B = 0xff;
 bool init(); // Khởi tạo SDL và cửa sổ
 SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh (giong loadImage)
 bool loadMedia(); // Tải tất cả các tài nguyên cần thiết
+bool CheckCollisision(const SDL_Rect &object1,const SDL_Rect &object2);//check va cham
 void close(); // Giải phóng bộ nhớ và thoát khỏi SDL
 
 #endif // COMMONFUNC_H
