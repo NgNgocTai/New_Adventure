@@ -60,9 +60,6 @@ int main(int argc, char* argv[]) {
             plane_object.HandleInputAction(e);
         }
 
-        // Xử lý di chuyển của nhân vật
-        plane_object.HandleMove();
-
 
         // Clear screen
         SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -72,11 +69,10 @@ int main(int argc, char* argv[]) {
         background.Render(gRenderer);
 
         // Xử lí background di chuyển
-
         background.Move();
 
-
-
+        // Xử lý di chuyển của nhân vật
+        plane_object.HandleMove();
         // Render character
         plane_object.Render(gRenderer);
 
@@ -86,14 +82,49 @@ int main(int argc, char* argv[]) {
 
 
         //Render Threat
-        for(int i=0;i<NUM_THREAT;i++)
+        for(int tt=0;tt<NUM_THREAT;tt++)
        {
-            ThreatObject *p_threat = (p_threats+i);
+            ThreatObject *p_threat = (p_threats+tt);
             if(p_threat!=NULL)
            {
-                p_threat -> Render(gRenderer);//Render ThreatObject
                 p_threat -> HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);// Xử lí di chuyển ThreatObject
-                p_threat -> FireAmo(gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT);// bắn đạn
+                p_threat -> Render(gRenderer);//Render ThreatObject
+                p_threat->FireAmo(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);//Bắn đạn
+
+                //Check va chạm MainObject và Threat
+                bool is_col=CheckCollisision(plane_object.GetRect(),p_threat->GetRect());
+                if(is_col==true)
+                {
+                    //Hiện ra thông báo GameOver khi va chạm
+                   SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);
+
+
+                        //Xóa nốt dữ liệu khi kết thúc
+                       delete [] p_threats;
+                       close();
+                       return 0;
+
+
+                }
+                // Check va chạm đạn MainObject với Threat
+                std::vector<AmoObject*> amo_list =plane_object.GetAmoList();// Lấy list đạn của MainObject
+                for(int im=0;im<amo_list.size();im++)
+                {
+                    AmoObject* p_amo = amo_list.at(im);
+                    if(p_amo!=NULL)
+                    {
+                        bool is_col2 = CheckCollisision(p_amo->GetRect(),p_threat->GetRect());// bool check va chạm
+                        if(is_col2==true)// Khi đạn bắn trúng địch
+                        {
+                            //Reset vi tri
+                            p_threat->Reset(SCREEN_WIDTH+ tt*400, rand()%300);
+                            plane_object.RemoveAmo(im);
+
+                        }
+                    }
+                }
+
+
            }
        }
         // Update screen
@@ -107,3 +138,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+

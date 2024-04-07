@@ -31,6 +31,7 @@ public:
 
     void CreateAmo();
     void FireAmo(SDL_Renderer* des,const int&x_limit,const int&y_limit);
+     void Reset(const int& x_border,const int& y_border);
 private:
     int x_val_;
     int y_val_;

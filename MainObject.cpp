@@ -131,3 +131,20 @@ void MainObject::HandleMove()
     if (rect_.y < 0 || rect_.y + HEIGHT_MAIN_OBJECT > SCREEN_HEIGHT - 100)
         rect_.y -= y_val_ ;
 }
+void MainObject::RemoveAmo(const int &idx)
+{
+  for(int i=0;i<p_amo_list.size();i++)
+  {
+      if(idx<p_amo_list.size())
+      {
+          AmoObject *p_amo=p_amo_list.at(idx);
+          p_amo_list.erase(p_amo_list.begin()+idx);
+
+          if(p_amo!=NULL)
+          {
+              delete p_amo;
+              p_amo =NULL;
+          }
+
+      }
+  }}

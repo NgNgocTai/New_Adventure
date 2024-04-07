@@ -80,3 +80,18 @@ void ThreatObject :: HandleInputAction(SDL_Event events)
 {
 
 }
+void ThreatObject :: Reset(const int& x_border, const int&y_border)
+{
+    rect_.x=x_border;
+    rect_.y=y_border;
+
+    //Reset lại vị trí đạn
+    for(int i=0;i<p_amo_list.size();i++)
+    {
+        AmoObject *p_amo=p_amo_list.at(i);
+        if(p_amo!=NULL)
+        {
+             p_amo->SetRect(this->rect_.x ,this->rect_.y+rect_.h*0.5);
+        }
+    }
+}
