@@ -124,6 +124,31 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
+                //Check va chạm đạn Threat với MainObject
+                std::vector<AmoObject*> bullet_list =p_threat->GetAmoList();// Lấy list đạn của MainObject
+                for(int am=0;am<bullet_list.size();am++)
+                {
+                    AmoObject* p_amo = bullet_list.at(am);
+                    if(p_amo!=NULL)
+                    {
+                        bool is_col1 = CheckCollisision(p_amo->GetRect(),plane_object.GetRect());// bool check va chạm
+                        if(is_col1==true)// Khi đạn bắn trúng MainObject
+                        {
+                            //Reset vi trí đạn( Có thể viết hàm ResetAmo)
+
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);
+
+                            //Xóa nốt dữ liệu khi kết thúc
+                            delete [] p_threats;
+                            close();
+                            return 0;
+
+
+                        }
+                    }
+                }
+
+
 
            }
        }
