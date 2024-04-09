@@ -28,10 +28,12 @@ public:
       // Setter and getter for bullets
     void SetAmoList(std::vector<AmoObject*>amo_list){p_amo_list=amo_list;}
     std::vector<AmoObject*> GetAmoList() const {return p_amo_list;}
-
+    //Tạo đạn
     void CreateAmo();
+    //Bắn đạn
     void FireAmo(SDL_Renderer* des,const int&x_limit,const int&y_limit);
-     void Reset(const int& x_border,const int& y_border);
+
+    void Reset(const int& x_border,const int& y_border);
 private:
     int x_val_;
     int y_val_;

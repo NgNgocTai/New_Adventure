@@ -34,8 +34,9 @@ public :
     // Xử lý di chuyển của đạn
     void HandleMove(const int&x_border,const int&y_border);
 
-    // Xử lý di chuyển của đạn của địch
+     // Xử lý di chuyển của đạn của địch
     void HandleMove2();
+
 
     // Getter và setter cho loại đạn
     int get_type() const{return amo_type_;}
@@ -51,6 +52,7 @@ public :
     //Getter và setter cho tốc độ đạn
     int  get_x_val_ ()const {return x_val_;}
     void set_x_val_(const int& x)  {x_val_=x;}
+
 private:
     int x_val_; // Giá trị tốc độ theo chiều ngang
     int y_val_; // Giá trị tốc độ theo chiều dọc

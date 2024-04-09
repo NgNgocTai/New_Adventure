@@ -17,7 +17,18 @@ ThreatObject :: ThreatObject()
 //Hàm hủy
 ThreatObject :: ~ThreatObject()
 {
-
+    if(p_amo_list.size()>0)
+    {
+        for(int i=0;i<p_amo_list.size();i++)
+        {
+            AmoObject*p_amo=p_amo_list.at(i);
+            if(p_amo!=NULL){
+                delete p_amo;
+                p_amo=NULL;
+            }
+        }
+        p_amo_list.clear();
+    }
 }
 // Hàm tạo ảnh đạn
 void ThreatObject :: CreateAmo()
@@ -25,7 +36,7 @@ void ThreatObject :: CreateAmo()
     AmoObject *p_amo = new AmoObject();
     if(p_amo!=NULL)
     {
-        bool ret = p_amo -> LoadImg("picture/sphere.png",gRenderer);
+        bool ret = p_amo -> LoadImg("picture/sphere2.png",gRenderer);
         if(ret)
         {
             p_amo ->set_is_move(true);// trạng thái viên đạn
@@ -33,6 +44,7 @@ void ThreatObject :: CreateAmo()
             p_amo ->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);// kích thước
             p_amo ->set_x_val_(10);//tốc độ đạn
             p_amo ->SetRect(this->rect_.x ,this->rect_.y+rect_.h*0.5);//vị trí viên đạn
+
             p_amo_list.push_back(p_amo);
         }
     }
@@ -45,10 +57,11 @@ void ThreatObject :: FireAmo(SDL_Renderer* des,const int&x_limit,const int&y_lim
         AmoObject *p_amo = p_amo_list.at(i);
         if(p_amo!=NULL)
         {
-            if(p_amo->get_is_move()==true)
+            // Set cho vật bắn đạn và không bắn thì vị trí <140 (tránh xả đạn lúc cuối)
+            if(p_amo->get_is_move()==true && this->rect_.x >140 )
             {
-                p_amo->HandleMove2();
-                p_amo ->Render(gRenderer);
+                p_amo->HandleMove2();// Xử lí đạn của ThreatObject
+                p_amo ->Render(gRenderer);// Render đạn
             }
             else
             {
@@ -69,7 +82,7 @@ void ThreatObject :: HandleMove(const int& x_border,const int& y_border )
 
         //Xử lí phần vị trí ngẫu nhiên khi đi hết màn hình
         int random = rand() %400;
-        if(random>SCREEN_HEIGHT -200)
+        if(random>SCREEN_HEIGHT -100)
         {
             random = SCREEN_HEIGHT*0.4;
         }
@@ -95,3 +108,4 @@ void ThreatObject :: Reset(const int& x_border, const int&y_border)
         }
     }
 }
+

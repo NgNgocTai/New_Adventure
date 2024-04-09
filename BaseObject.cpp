@@ -68,8 +68,13 @@ void BaseObject::SetRect(const int& x, const int& y) {
 
 void BaseObject::SetRectSize(const int& w, const int& h) {
     // Thiết lập kích thước của rect
+
     rect_.w = w;
     rect_.h = h;
+}
+SDL_Rect BaseObject::GetRect() const {
+    // Trả về rect của đối tượng
+    return rect_;
 }
 
 void BaseObject ::Move(){
@@ -84,11 +89,6 @@ void BaseObject ::Move(){
 
    }
 
-}
-
-SDL_Rect BaseObject::GetRect() const {
-    // Trả về rect của đối tượng
-    return rect_;
 }
 
 SDL_Texture* BaseObject::GetObject() const {

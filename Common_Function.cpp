@@ -37,7 +37,10 @@ bool init() {
         return false;
     }
 
+
+
     return true;
+
 }
 
 // Hàm tải texture từ tệp hình ảnh
@@ -58,17 +61,17 @@ SDL_Texture* loadTexture(std::string path) {
 
 // Hàm load media
 bool loadMedia() {
-    bool success = true;
+    Mix_Init(MIX_INIT_MP3);
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)==-1)
+        return false;
 
-    // Không cần thực hiện gì ở đây vì việc tải media được xử lý trong main.cpp
-
-    return success;
+    return true;
 }
 
 //Hàm check va chạm
 bool CheckCollisision(const SDL_Rect &object1, const SDL_Rect &object2)
 {
-    int left_a = object1.x;
+  int left_a = object1.x;
   int right_a = object1.x + object1.w;
   int top_a = object1.y;
   int bottom_a = object1.y + object1.h;
@@ -154,18 +157,23 @@ bool CheckCollisision(const SDL_Rect &object1, const SDL_Rect &object2)
 
 }
 
-
 // Hàm đóng SDL và giải phóng bộ nhớ
 void close() {
     // Hủy renderer
     SDL_DestroyRenderer(gRenderer);
     gRenderer = NULL;
 
+    Mix_FreeChunk(gGun1); gGun1=NULL;
+    Mix_FreeChunk(gGun2);gGun2=NULL;
+
+    Mix_FreeChunk(gEx1);gEx1=NULL;
+    Mix_FreeChunk(gEx2);gEx2=NULL;
     // Hủy cửa sổ
     SDL_DestroyWindow(gWindow);
     gWindow = NULL;
 
     // Đóng SDL_image và SDL
+    Mix_Quit();
     IMG_Quit();
     SDL_Quit();
 }

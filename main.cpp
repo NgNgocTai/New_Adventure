@@ -50,12 +50,33 @@ int main(int argc, char* argv[]) {
     // Main loop
     bool quit = false;
     SDL_Event e;
+
+    //Đọc file âm thanh
+    gGun1=Mix_LoadWAV("sound/Gun1.wav");
+    gGun2=Mix_LoadWAV("sound/Gun2.wav");
+    gEx1=Mix_LoadWAV("sound/Explosion1.wav");
+    gEx2=Mix_LoadWAV("sound/Explosion2.wav");
+
     while (!quit) {
         // Xử lý sự kiện
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
+                break;
             }
+            //Check neu bam trai phai
+            else if(e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                if(e.button.button==SDL_BUTTON_LEFT)
+                {
+                    Mix_PlayChannel(-1,gGun1,0);// Chạy âm thanh khi ấn chuột
+                }
+                else if(e.button.button==SDL_BUTTON_RIGHT)
+                {
+                    Mix_PlayChannel(-1,gGun2,0);// Chạy âm thanh khi ấn chuột
+                }
+            }
+
             // Gọi hàm HandleInputAction() của đối tượng plane_object
             plane_object.HandleInputAction(e);
         }
@@ -119,7 +140,8 @@ int main(int argc, char* argv[]) {
                             //Reset vi tri
                             p_threat->Reset(SCREEN_WIDTH+ tt*400, rand()%300);
                             plane_object.RemoveAmo(im);
-
+                            //
+                            Mix_PlayChannel(-1,gEx1,0);
                         }
                     }
                 }
@@ -135,8 +157,8 @@ int main(int argc, char* argv[]) {
                         if(is_col1==true)// Khi đạn bắn trúng MainObject
                         {
                             //Reset vi trí đạn( Có thể viết hàm ResetAmo)
-
-                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);
+                            Mix_PlayChannel(-1,gEx2,0);
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);// Hien ra message khi thua
 
                             //Xóa nốt dữ liệu khi kết thúc
                             delete [] p_threats;
@@ -155,6 +177,7 @@ int main(int argc, char* argv[]) {
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
+
     }
     delete [] p_threats;
 

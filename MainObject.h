@@ -5,8 +5,8 @@
 #include "BaseObject.h"
 #include "AmoObject.h"
 
-#define WIDTH_MAIN_OBJECT 80
-#define HEIGHT_MAIN_OBJECT 46
+#define WIDTH_MAIN_OBJECT 77
+#define HEIGHT_MAIN_OBJECT 52
 
 
 #include <vector>
@@ -20,17 +20,18 @@ public:
 
     void HandleInputAction(SDL_Event events);
     void HandleMove();
-    void SetAmoList(std::vector<AmoObject*>amo_list){p_amo_list=amo_list;}
     void HandleAmo(SDL_Renderer* des );
+    void SetAmoList(std::vector<AmoObject*>amo_list){p_amo_list=amo_list;}
     std::vector<AmoObject*> GetAmoList() const {return p_amo_list;}
-     void RemoveAmo(const int &idx);
+    void RemoveAmo(const int &idx);
+
 private:
     //the hien cho su nhanh cham cua vat
     int x_val_;// gia tri tdoi theo chieu ngang(bien thien)
     int y_val_; // gia tri tdoi theo chieu doc(bien thien)
-    int speed;
+    int speed;// toc do bay
 
-    std :: vector <AmoObject*>p_amo_list;
+    std::vector <AmoObject*>p_amo_list;// List cac Amo
 
 
 };

@@ -28,12 +28,19 @@ static const int COLOR_KEY_R = 0;
 static const int COLOR_KEY_G = 0xff;
 static const int COLOR_KEY_B = 0xff;
 
+static Mix_Chunk* gGun1=NULL;// Âm thanh cho đạn 1
+static Mix_Chunk* gGun2=NULL;// Âm thanh cho đạn 2
+static Mix_Chunk* gEx1=NULL;  // Âm thanh cho nổ 1
+static  Mix_Chunk* gEx2=NULL; // Âm thanh cho nổ 2
 
 // Hàm khởi tạo và giải phóng
 bool init(); // Khởi tạo SDL và cửa sổ
 SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh (giong loadImage)
 bool loadMedia(); // Tải tất cả các tài nguyên cần thiết
-bool CheckCollisision(const SDL_Rect &object1,const SDL_Rect &object2);//check va cham
 void close(); // Giải phóng bộ nhớ và thoát khỏi SDL
+
+bool CheckCollisision(const SDL_Rect &object1,const SDL_Rect &object2);
+
+
 
 #endif // COMMONFUNC_H
