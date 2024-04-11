@@ -14,7 +14,7 @@ public:
     void SetRectSize(const int& w, const int& h); // Thiết lập kích thước của đối tượng
     SDL_Rect GetRect() const; // Lấy vị trí của đối tượng
     SDL_Texture* GetObject() const; // Lấy con trỏ đến texture của đối tượng
-    void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL); // Vẽ texture lên renderer
+    void Render(SDL_Renderer* render, const SDL_Rect* clip = NULL); // Vẽ texture lên renderer
     void Move();
 
     void free(); // Giải phóng texture

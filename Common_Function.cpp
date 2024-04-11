@@ -4,44 +4,7 @@
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 
-// Hàm khởi tạo SDL và cửa sổ
-bool init() {
-    // Khởi tạo SDL_VIDEO để sử dụng video
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        printf("SDL không thể khởi tạo! Lỗi SDL: %s\n", SDL_GetError());
-        return false;
-    }
 
-    // Thiết lập chất lượng phóng to và thu nhỏ của renderer
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-
-    // Tạo cửa sổ SDL với tên "SDL game", kích thước mặc định, và hiển thị
-    gWindow = SDL_CreateWindow("SDL game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (gWindow == NULL) {
-        printf("Không thể tạo cửa sổ! Lỗi SDL: %s\n", SDL_GetError());
-        return false;
-    }
-
-    // Tạo renderer với phần cứng hỗ trợ và thiết lập màu nền là màu trắng
-    gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-    if (gRenderer == NULL) {
-        printf("Không thể tạo renderer! Lỗi SDL: %s\n", SDL_GetError());
-        return false;
-    }
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
-    // Khởi tạo SDL_image để sử dụng PNG
-    int imgFlags = IMG_INIT_PNG;
-    if (!(IMG_Init(imgFlags) & imgFlags)) {
-        printf("SDL_image không thể khởi tạo! Lỗi SDL_image: %s\n", IMG_GetError());
-        return false;
-    }
-
-
-
-    return true;
-
-}
 
 // Hàm tải texture từ tệp hình ảnh
 SDL_Texture* loadTexture(std::string path) {
@@ -61,9 +24,6 @@ SDL_Texture* loadTexture(std::string path) {
 
 // Hàm load media
 bool loadMedia() {
-    Mix_Init(MIX_INIT_MP3);
-    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)==-1)
-        return false;
 
     return true;
 }

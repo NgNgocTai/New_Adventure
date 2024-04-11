@@ -430,19 +430,23 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1712111167 source:c:\users\admin\desktop\game_project\main.cpp
+1712843077 source:c:\users\admin\desktop\game_project\main.cpp
 	<SDL.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
 	<stdio.h>
+	<iostream>
 	"BaseObject.h"
 	"Common_Function.h"
 	"MainObject.h"
 	"AmoObject.h"
 	"ThreatObject.h"
 
-1712111084 source:c:\users\admin\desktop\game_project\common_function.cpp
+1712842950 source:c:\users\admin\desktop\game_project\common_function.cpp
 	"Common_Function.h"
 
-1712563063 c:\users\admin\desktop\game_project\common_function.h
+1712842975 c:\users\admin\desktop\game_project\common_function.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -450,33 +454,33 @@
 	<windows.h>
 	<string>
 
-1712111186 c:\users\admin\desktop\game_project\baseobject.h
+1712842972 c:\users\admin\desktop\game_project\baseobject.h
 	"Common_Function.h"
 
-1712111276 source:c:\users\admin\desktop\game_project\baseobject.cpp
+1712673626 source:c:\users\admin\desktop\game_project\baseobject.cpp
 	"BaseObject.h"
 
-1711378513 source:c:\users\admin\desktop\game_project\mainobject.cpp
+1712842960 source:c:\users\admin\desktop\game_project\mainobject.cpp
 	"MainObject.h"
 	"Common_Function.h"
 
-1711378391 c:\users\admin\desktop\game_project\mainobject.h
+1712842979 c:\users\admin\desktop\game_project\mainobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"
 	<vector>
 
-1711936255 source:c:\users\admin\desktop\game_project\amoobject.cpp
+1712842935 source:c:\users\admin\desktop\game_project\amoobject.cpp
 	"AmoObject.h"
 
-1711936354 c:\users\admin\desktop\game_project\amoobject.h
+1712842968 c:\users\admin\desktop\game_project\amoobject.h
 	"BaseObject.h"
 	"Common_Function.h"
 
-1711944665 source:c:\users\admin\desktop\game_project\threatobject.cpp
+1712842964 source:c:\users\admin\desktop\game_project\threatobject.cpp
 	"ThreatObject.h"
 
-1711936324 c:\users\admin\desktop\game_project\threatobject.h
+1712842982 c:\users\admin\desktop\game_project\threatobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"

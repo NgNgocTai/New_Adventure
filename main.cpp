@@ -1,10 +1,74 @@
 #include <SDL.h>
+#include<SDL_image.h>
+#include<SDL_mixer.h>
+#include<SDL_ttf.h>
 #include <stdio.h>
+#include<iostream>
 #include "BaseObject.h"
 #include "Common_Function.h"
 #include "MainObject.h"
 #include "AmoObject.h"
 #include "ThreatObject.h"
+
+
+TTF_Font *font =NULL;
+int game_score=0;//Điểm khi bắt đầu game
+
+
+void RenderScore();// Render điểm
+void RenderTime();
+// Hàm khởi tạo SDL và cửa sổ
+bool init() {
+    // Khởi tạo SDL_VIDEO để sử dụng video
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        printf("SDL không thể khởi tạo! Lỗi SDL: %s\n", SDL_GetError());
+        return false;
+    }
+
+    // Thiết lập chất lượng phóng to và thu nhỏ của renderer
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+
+    // Tạo cửa sổ SDL với tên "SDL game", kích thước mặc định, và hiển thị
+    gWindow = SDL_CreateWindow("SDL game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    if (gWindow == NULL) {
+        printf("Không thể tạo cửa sổ! Lỗi SDL: %s\n", SDL_GetError());
+        return false;
+    }
+
+    // Tạo renderer với phần cứng hỗ trợ và thiết lập màu nền là màu trắng
+    gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+    if (gRenderer == NULL) {
+        printf("Không thể tạo renderer! Lỗi SDL: %s\n", SDL_GetError());
+        return false;
+    }
+    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+    // Khởi tạo SDL_image để sử dụng PNG
+    int imgFlags = IMG_INIT_PNG;
+    if (!(IMG_Init(imgFlags) & imgFlags)) {
+        printf("SDL_image không thể khởi tạo! Lỗi SDL_image: %s\n", IMG_GetError());
+        return false;
+    }
+    //Khởi tạo mixer
+      Mix_Init(MIX_INIT_MP3);
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)==-1)
+        return false;
+
+    //Đọc file âm thanh
+    gGun1=Mix_LoadWAV("sound/Gun1.wav");
+    gGun2=Mix_LoadWAV("sound/Gun2.wav");
+    gEx1=Mix_LoadWAV("sound/Explosion1.wav");
+    gEx2=Mix_LoadWAV("sound/Explosion2.wav");
+
+    //Init text
+    if(TTF_Init()==-1){return false;}
+
+    font = TTF_OpenFont("picture/SSWB.ttf",20);
+    if(font==NULL){return false;}
+     return true;
+
+}
+
 int main(int argc, char* argv[]) {
 
     // Khởi tạo SDL
@@ -51,11 +115,7 @@ int main(int argc, char* argv[]) {
     bool quit = false;
     SDL_Event e;
 
-    //Đọc file âm thanh
-    gGun1=Mix_LoadWAV("sound/Gun1.wav");
-    gGun2=Mix_LoadWAV("sound/Gun2.wav");
-    gEx1=Mix_LoadWAV("sound/Explosion1.wav");
-    gEx2=Mix_LoadWAV("sound/Explosion2.wav");
+    unsigned int mark_value=0;
 
     while (!quit) {
         // Xử lý sự kiện
@@ -137,10 +197,11 @@ int main(int argc, char* argv[]) {
                         bool is_col2 = CheckCollisision(p_amo->GetRect(),p_threat->GetRect());// bool check va chạm
                         if(is_col2==true)// Khi đạn bắn trúng địch
                         {
+                           game_score++;// Cập nhật điểm khi va chạm
                             //Reset vi tri
                             p_threat->Reset(SCREEN_WIDTH+ tt*400, rand()%300);
                             plane_object.RemoveAmo(im);
-                            //
+                            //Render âm thanh khi va chạm
                             Mix_PlayChannel(-1,gEx1,0);
                         }
                     }
@@ -174,6 +235,10 @@ int main(int argc, char* argv[]) {
 
            }
        }
+        RenderScore(); // In điểm ra màn hình
+        RenderTime(); // Hiện thời gian ra màn hình
+
+
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
@@ -186,4 +251,97 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
+void RenderScore(){
+    //Render text
+        SDL_Color text_color1 ={255,0,0};// Màu chữ đỏ
+         std::string SCORE ="Score :" +std::to_string(game_score);
+
+         SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, SCORE.c_str(), text_color1);
+            if (scoreSurface == nullptr) {
+            // Xử lý lỗi khi không thể tạo bề mặt văn bản
+            printf("Failed to create score surface! SDL_ttf Error: %s\n", TTF_GetError());
+            return ;
+        }
+                // Tạo texture từ surface
+            SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(gRenderer, scoreSurface);
+            if (scoreTexture == nullptr) {
+            // Xử lý lỗi khi không thể tạo texture từ surface
+            printf("Failed to create score texture! SDL Error: %s\n", SDL_GetError());
+            return ;
+        }
+
+            // Lấy kích thước của surface văn bản
+            const int text_x =500;
+            const int text_y =20;
+            int textWidth = scoreSurface->w;
+            int textHeight = scoreSurface->h;
+
+            // Giải phóng surface văn bản không cần dùng nữa
+            SDL_FreeSurface(scoreSurface);
+
+            // Thiết lập vị trí hiển thị văn bản
+            SDL_Rect textRect = {text_x, text_y, textWidth, textHeight};
+
+            // Vẽ texture văn bản lên màn hình
+            SDL_RenderCopy(gRenderer, scoreTexture, NULL, &textRect);
+
+            // Giải phóng texture văn bản không cần dùng nữa
+            SDL_DestroyTexture(scoreTexture);
+
+
+}
+
+void RenderTime()
+{
+
+    // Render text
+    SDL_Color text_color2 = {0, 0, 0}; // Màu chữ
+
+    // Lấy thời gian hiện tại tính từ khi SDL được khởi tạo (miligiây)
+    Uint32 current_time = SDL_GetTicks();
+
+    // Chuyển đổi thời gian thành giây và phút
+    int seconds = (current_time / 1000) % 60;
+    int minutes = (current_time / 1000) / 60;
+
+    // Tạo chuỗi định dạng thời gian
+    std::string time_string = "Time: " + std::to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + std::to_string(seconds);
+
+    // Tạo bề mặt văn bản
+    SDL_Surface* timeSurface = TTF_RenderText_Solid(font, time_string.c_str(), text_color2);
+    if (timeSurface == nullptr) {
+        // Xử lý lỗi khi không thể tạo bề mặt văn bản
+        printf("Failed to create time surface! SDL_ttf Error: %s\n", TTF_GetError());
+        return;
+    }
+
+    // Tạo texture từ surface
+    SDL_Texture* timeTexture = SDL_CreateTextureFromSurface(gRenderer, timeSurface);
+    if (timeTexture == nullptr) {
+        // Xử lý lỗi khi không thể tạo texture từ surface
+        printf("Failed to create time texture! SDL Error: %s\n", SDL_GetError());
+        return;
+    }
+
+    // Lấy kích thước của surface văn bản
+    const int text_x = 800;
+    const int text_y = 20;
+    int textWidth = timeSurface->w;
+    int textHeight = timeSurface->h;
+
+    // Giải phóng surface văn bản không cần dùng nữa
+    SDL_FreeSurface(timeSurface);
+
+    // Thiết lập vị trí hiển thị văn bản
+    SDL_Rect textRect = {text_x, text_y, textWidth, textHeight};
+
+    // Vẽ texture văn bản lên màn hình
+    SDL_RenderCopy(gRenderer, timeTexture, NULL, &textRect);
+
+    // Giải phóng texture văn bản không cần dùng nữa
+    SDL_DestroyTexture(timeTexture);
+}
+
+
 

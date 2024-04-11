@@ -34,7 +34,7 @@ static Mix_Chunk* gEx1=NULL;  // Âm thanh cho nổ 1
 static  Mix_Chunk* gEx2=NULL; // Âm thanh cho nổ 2
 
 // Hàm khởi tạo và giải phóng
-bool init(); // Khởi tạo SDL và cửa sổ
+
 SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh (giong loadImage)
 bool loadMedia(); // Tải tất cả các tài nguyên cần thiết
 void close(); // Giải phóng bộ nhớ và thoát khỏi SDL
