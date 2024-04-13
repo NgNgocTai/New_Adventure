@@ -1,9 +1,5 @@
 #include <SDL.h>
-#include<SDL_image.h>
-#include<SDL_mixer.h>
-#include<SDL_ttf.h>
 #include <stdio.h>
-#include<iostream>
 #include "BaseObject.h"
 #include "Common_Function.h"
 #include "MainObject.h"
@@ -90,10 +86,10 @@ int main(int argc, char* argv[]) {
 
     // Tạo đối tượng nhân vật
     MainObject plane_object;
-    bool ret2 = plane_object.LoadImg("picture/plane_fly1.png", gRenderer);
+    bool ret2 = plane_object.LoadImg("picture/airplane2.png", gRenderer);
     if (!ret2) return 0;
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
-    //plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
+    plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
 
 
 
@@ -104,9 +100,10 @@ int main(int argc, char* argv[]) {
         ThreatObject *p_threat =(p_threats +i);//gán
         if(p_threat!=NULL)
     {
-        bool ret3 = p_threat->LoadImg("picture/threat.png",gRenderer);
+        bool ret3 = p_threat->LoadImg("picture/Threat2.png",gRenderer);
         if(!ret3)return 0;
         p_threat->SetRect(SCREEN_WIDTH+ i*320, rand()%300);// Set vị trí ngẫu nhiên khác nhau cho từng Object
+        p_threat->SetRectSize( WIDTH_MAIN_OBJECT,HEIGHT_MAIN_OBJECT);
         p_threat->set_x_val(3);
         p_threat ->CreateAmo();// Tạo Amo
     }
@@ -176,6 +173,7 @@ int main(int argc, char* argv[]) {
                 bool is_col=CheckCollisision(plane_object.GetRect(),p_threat->GetRect());
                 if(is_col==true)
                 {
+                    Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
                     //Hiện ra thông báo GameOver khi va chạm
                    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);
 
@@ -218,7 +216,7 @@ int main(int argc, char* argv[]) {
                         if(is_col1==true)// Khi đạn bắn trúng MainObject
                         {
                             //Reset vi trí đạn( Có thể viết hàm ResetAmo)
-                            Mix_PlayChannel(-1,gEx2,0);
+                            Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);// Hien ra message khi thua
 
                             //Xóa nốt dữ liệu khi kết thúc

@@ -71,14 +71,14 @@
             {
 
                  p_amo->SetWidthHeight(WIDTH_LASER,HEIGHT_LASER);
-                 p_amo->LoadImg("picture/laser3.png",gRenderer);
+                 p_amo->LoadImg("picture/rocket1.png",gRenderer);
                  p_amo->set_type(AmoObject::LASER);
                  //Mix_PlayChannel(-1, gGun1, 0);// Chạy âm thanh khi ấn chuột
             }
             else if(events.button.button==SDL_BUTTON_RIGHT)
              {
                  p_amo->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);
-                 p_amo->LoadImg("picture/sphere.png",gRenderer);
+                 p_amo->LoadImg("picture/rocket2.png",gRenderer);
                  p_amo->set_type(AmoObject::SPHERE);
                  //Mix_PlayChannel(-1, gGun2, 0);// Chạy âm thanh khi ấn chuột
             }
