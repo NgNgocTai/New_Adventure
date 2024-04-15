@@ -6,7 +6,6 @@
 #include "AmoObject.h"
 #include "ThreatObject.h"
 
-
 TTF_Font *font =NULL;
 int game_score=0;//Điểm khi bắt đầu game
 
@@ -91,6 +90,12 @@ int main(int argc, char* argv[]) {
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
     plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
 
+    //Tạo đối tượng đệ tử
+    MainObject plane2_object;
+    bool ret =plane2_object.LoadImg("picture/plane_fly1.png",gRenderer);
+    if(!ret)return 0;
+    plane2_object.SetRect(100,230);//Thiết lập vị trí ban đầu của đệ tử
+    plane2_object.SetRectSize(40,23);//Thiết lập kích thước ban đầu của đệ tử
 
 
     //Tạo mảng các đối tượng hiểm họa
@@ -157,6 +162,9 @@ int main(int argc, char* argv[]) {
         // Xử lý di chuyển của các đạn( bắt buộc phải để sau background và plane_object)
         plane_object.HandleAmo(gRenderer);
 
+        //Render đệ tử
+        plane2_object.SetRect(plane_object.GetRect().x+10,plane_object.GetRect().y+60);//Set đệ tử đi theo sư huynh
+        plane2_object.Render(gRenderer);
 
 
         //Render Threat
@@ -175,7 +183,7 @@ int main(int argc, char* argv[]) {
                 {
                     Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
                     //Hiện ra thông báo GameOver khi va chạm
-                   SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);
+                   SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose! You are stupid!", NULL);
 
 
                         //Xóa nốt dữ liệu khi kết thúc

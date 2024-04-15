@@ -39,8 +39,17 @@
                 case SDLK_a:
                     x_val_ = -speed; // Di chuyển sang trái
                     break;
-                default:
+                //Khi nút space được ấn thì đệ tử bắn đạn (Thực ra vẫn là MainObject bắn thôi :)) )
+                case SDLK_SPACE:
+                    AmoObject *p_amo  = new AmoObject();
+                    p_amo->LoadImg("picture/laser2.png",gRenderer);
+                    p_amo->SetRectSize(36,5);
+                    p_amo ->SetRect(this->rect_.x +WIDTH_MAIN_OBJECT-35 ,this->rect_.y+HEIGHT_MAIN_OBJECT*0.8+40);
+                    p_amo ->set_x_val_(10);
+                    p_amo ->set_is_move(true);
+                    p_amo_list.push_back(p_amo);
                     break;
+
             }
         }
         else if (events.type == SDL_KEYUP) // Nếu một phím được thả ra
@@ -70,15 +79,17 @@
             if(events.button.button==SDL_BUTTON_LEFT)
             {
 
-                 p_amo->SetWidthHeight(WIDTH_LASER,HEIGHT_LASER);
+
                  p_amo->LoadImg("picture/rocket1.png",gRenderer);
+                 p_amo->SetRectSize(36,5);
                  p_amo->set_type(AmoObject::LASER);
                  //Mix_PlayChannel(-1, gGun1, 0);// Chạy âm thanh khi ấn chuột
             }
             else if(events.button.button==SDL_BUTTON_RIGHT)
              {
-                 p_amo->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);
+
                  p_amo->LoadImg("picture/rocket2.png",gRenderer);
+                 p_amo->SetRectSize(72,12);
                  p_amo->set_type(AmoObject::SPHERE);
                  //Mix_PlayChannel(-1, gGun2, 0);// Chạy âm thanh khi ấn chuột
             }
@@ -123,7 +134,7 @@
     {
 
 
-        // Cập nhật vị trí của đối tượng dựa trên vận tốc của nó, nhân với hệ số giảm tốc độ
+        // Cập nhật vị trí của đối tượng dựa trên vận tốc của nó
         rect_.x += x_val_ ;
         rect_.y += y_val_ ;
 
