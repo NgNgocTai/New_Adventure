@@ -52,6 +52,8 @@
 		<Unit filename="AmoObject.h" />
 		<Unit filename="BaseObject.cpp" />
 		<Unit filename="BaseObject.h" />
+		<Unit filename="BossObject.cpp" />
+		<Unit filename="BossObject.h" />
 		<Unit filename="Common_Function.cpp" />
 		<Unit filename="Common_Function.h" />
 		<Unit filename="MainObject.cpp" />
