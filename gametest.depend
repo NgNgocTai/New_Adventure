@@ -430,7 +430,7 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1713195510 source:c:\users\admin\desktop\game_project\main.cpp
+1713461306 source:c:\users\admin\desktop\game_project\main.cpp
 	<SDL.h>
 	<stdio.h>
 	"BaseObject.h"
@@ -438,11 +438,12 @@
 	"MainObject.h"
 	"AmoObject.h"
 	"ThreatObject.h"
+	"BossObject.h"
 
-1712851850 source:c:\users\admin\desktop\game_project\common_function.cpp
+1713461297 source:c:\users\admin\desktop\game_project\common_function.cpp
 	"Common_Function.h"
 
-1712842975 c:\users\admin\desktop\game_project\common_function.h
+1713461154 c:\users\admin\desktop\game_project\common_function.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -450,35 +451,44 @@
 	<windows.h>
 	<string>
 
-1712842972 c:\users\admin\desktop\game_project\baseobject.h
+1713461144 c:\users\admin\desktop\game_project\baseobject.h
 	"Common_Function.h"
 
-1712673626 source:c:\users\admin\desktop\game_project\baseobject.cpp
+1713461116 source:c:\users\admin\desktop\game_project\baseobject.cpp
 	"BaseObject.h"
 
-1713195545 source:c:\users\admin\desktop\game_project\mainobject.cpp
+1713461162 source:c:\users\admin\desktop\game_project\mainobject.cpp
 	"MainObject.h"
 	"Common_Function.h"
 
-1712842979 c:\users\admin\desktop\game_project\mainobject.h
+1713461158 c:\users\admin\desktop\game_project\mainobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"
 	<vector>
 
-1712842935 source:c:\users\admin\desktop\game_project\amoobject.cpp
+1713461112 source:c:\users\admin\desktop\game_project\amoobject.cpp
 	"AmoObject.h"
 
-1712842968 c:\users\admin\desktop\game_project\amoobject.h
+1713461140 c:\users\admin\desktop\game_project\amoobject.h
 	"BaseObject.h"
 	"Common_Function.h"
 
-1712842964 source:c:\users\admin\desktop\game_project\threatobject.cpp
+1713461136 source:c:\users\admin\desktop\game_project\threatobject.cpp
 	"ThreatObject.h"
 
-1712842982 c:\users\admin\desktop\game_project\threatobject.h
+1713461161 c:\users\admin\desktop\game_project\threatobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"
 	<vector>
+
+1713461120 source:c:\users\admin\desktop\game_project\bossobject.cpp
+	"BossObject.h"
+
+1713461150 c:\users\admin\desktop\game_project\bossobject.h
+	<vector>
+	"Common_Function.h"
+	"BaseObject.h"
+	"AmoObject.h"
 

@@ -40,7 +40,7 @@ void ThreatObject :: CreateAmo()
         if(ret)
         {
             p_amo ->set_is_move(true);// trạng thái viên đạn
-            p_amo ->set_type (AmoObject::SPHERE);//loại đạn
+
             p_amo ->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);// kích thước
             p_amo ->set_x_val_(10);//tốc độ đạn
             p_amo ->SetRect(this->rect_.x ,this->rect_.y+rect_.h*0.5);//vị trí viên đạn
@@ -93,6 +93,7 @@ void ThreatObject :: HandleInputAction(SDL_Event events)
 {
 
 }
+
 void ThreatObject :: Reset(const int& x_border, const int&y_border)
 {
     rect_.x=x_border;

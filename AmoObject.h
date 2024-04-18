@@ -16,13 +16,6 @@ class AmoObject : public BaseObject
 
 public :
 
-    // Liệt kê các loại đạn
-    enum AmoType
-    {
-        NONE  =  0, // Không có
-        LASER =  1, // Đạn laser
-        SPHERE = 2 // Đạn hình cầu
-    };
 
     // Hàm khởi tạo và hàm hủy
     AmoObject();
@@ -37,10 +30,8 @@ public :
      // Xử lý di chuyển của đạn của địch
     void HandleMove2();
 
-
-    // Getter và setter cho loại đạn
-    int get_type() const{return amo_type_;}
-    void set_type(const int& type){amo_type_ = type;}
+    //Xử lí di chuyển đạn của boss
+    void HandleMove3();
 
     // Getter và setter cho trạng thái di chuyển của đạn
     bool get_is_move()  const{return is_move_;}
@@ -57,7 +48,7 @@ private:
     int x_val_; // Giá trị tốc độ theo chiều ngang
     int y_val_; // Giá trị tốc độ theo chiều dọc
     bool is_move_; // Trạng thái di chuyển của đạn
-    int amo_type_; // Loại đạn
+
 
 };
 

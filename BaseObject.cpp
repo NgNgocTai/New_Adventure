@@ -1,6 +1,7 @@
 #include "BaseObject.h"
 
 bool is_run_screen =true;
+bool is_move=true;
 BaseObject::BaseObject() {
     // Khởi tạo con trỏ texture và khung hình rect
     p_object_ = NULL;
@@ -56,8 +57,8 @@ void BaseObject::free() {
 //SDL_Rect : lưu vị trí x,y và kích thước w,h hình muốn vẽ
 void BaseObject::Render(SDL_Renderer* render, const SDL_Rect* clip) {
     // Render đối tượng lên màn hình
-    SDL_Rect renderquad = {rect_.x, rect_.y, rect_.w, rect_.h};
-    SDL_RenderCopy(render, p_object_, clip, &renderquad);
+    SDL_Rect ren = {rect_.x, rect_.y, rect_.w, rect_.h};
+    SDL_RenderCopy(render, p_object_, clip, &ren);
 }
 
 void BaseObject::SetRect(const int& x, const int& y) {
@@ -84,14 +85,15 @@ void BaseObject ::Move(){
         if(rect_.x<=-(WIDTH_BACKGROUND-SCREEN_WIDTH))
         {
             is_run_screen=false;
-
         }
 
    }
 
 }
 
+
 SDL_Texture* BaseObject::GetObject() const {
     // Trả về texture của đối tượng
     return p_object_;
 }
+

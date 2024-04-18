@@ -5,9 +5,10 @@
 #include "MainObject.h"
 #include "AmoObject.h"
 #include "ThreatObject.h"
-
+#include "BossObject.h"
 TTF_Font *font =NULL;
 int game_score=0;//Điểm khi bắt đầu game
+int boss_life=BOSS_LIFE;
 
 
 void RenderScore();// Render điểm
@@ -54,7 +55,8 @@ bool init() {
     gGun2=Mix_LoadWAV("sound/Gun2.wav");
     gEx1=Mix_LoadWAV("sound/Explosion1.wav");
     gEx2=Mix_LoadWAV("sound/Explosion2.wav");
-
+    gWin=Mix_LoadWAV("sound/Congratulation.wav");
+    gBoss=Mix_LoadWAV("sound/Explosion+5.wav");
     //Init text
     if(TTF_Init()==-1){return false;}
 
@@ -97,6 +99,18 @@ int main(int argc, char* argv[]) {
     plane2_object.SetRect(100,230);//Thiết lập vị trí ban đầu của đệ tử
     plane2_object.SetRectSize(40,23);//Thiết lập kích thước ban đầu của đệ tử
 
+    //Tạo mảng các thiên thạch
+    MainObject theorites[THEORITE_NUM];
+
+    for(int tr = 0; tr < THEORITE_NUM; tr++)
+    {
+        bool render = theorites[tr].LoadImg("picture/thienthach.png", gRenderer);
+        if (!render) return 0;
+        theorites[tr].SetRectSize(100, 100);
+        // Thiết lập vị trí của từng đối tượng theorite
+        theorites[tr].SetRect(SCREEN_WIDTH / 2 + 100 *tr, 0+tr*100);
+    }
+
 
     //Tạo mảng các đối tượng hiểm họa
     ThreatObject *p_threats = new ThreatObject [NUM_THREAT];
@@ -113,6 +127,19 @@ int main(int argc, char* argv[]) {
         p_threat ->CreateAmo();// Tạo Amo
     }
       }
+
+
+     // Tạo boss
+    BossObject *p_boss =new BossObject();
+    bool rett=p_boss ->LoadImg("picture/boss.png",gRenderer);
+    if(!rett)return 0;
+    p_boss->SetRect(SCREEN_WIDTH-300,SCREEN_HEIGHT/2-50);//Set vị trí cuối màn hình và cuối game
+    p_boss->SetRectSize(WIDTH_MAIN_OBJECT*2,HEIGHT_MAIN_OBJECT*2);
+    p_boss ->set_x_val(5);
+    p_boss->set_y_val(4);
+    p_boss ->CreateAmo();// Tao đạn cho boss
+
+
     // Main loop
     bool quit = false;
     SDL_Event e;
@@ -159,12 +186,32 @@ int main(int argc, char* argv[]) {
         // Render character
         plane_object.Render(gRenderer);
 
+       for(int tr=0;tr<THEORITE_NUM;tr++)
+       {
+           theorites[tr].HandleMove_Thienthach();
+           if(boss_render)
+            {
+                theorites[tr].Render(gRenderer);
+            }
+       }
+
+
         // Xử lý di chuyển của các đạn( bắt buộc phải để sau background và plane_object)
         plane_object.HandleAmo(gRenderer);
 
         //Render đệ tử
         plane2_object.SetRect(plane_object.GetRect().x+10,plane_object.GetRect().y+60);//Set đệ tử đi theo sư huynh
         plane2_object.Render(gRenderer);
+
+
+        //Render boss
+            if(game_score >=BOSS_RENDER)
+        {
+            p_boss -> Render(gRenderer);//Render ThreatObject
+            p_boss->FireAmo(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);//Bắn đạn
+            p_boss->HandleMove();
+            boss_render=true;
+        }
 
 
         //Render Threat
@@ -177,19 +224,20 @@ int main(int argc, char* argv[]) {
                 p_threat -> Render(gRenderer);//Render ThreatObject
                 p_threat->FireAmo(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);//Bắn đạn
 
-                //Check va chạm MainObject và Threat
-                bool is_col=CheckCollisision(plane_object.GetRect(),p_threat->GetRect());
-                if(is_col==true)
-                {
-                    Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
-                    //Hiện ra thông báo GameOver khi va chạm
-                   SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose! You are stupid!", NULL);
+                //Check va chạm MainObject và Threat, Boss
+                    bool is_col=CheckCollisision(plane_object.GetRect(),p_threat->GetRect());
+                    bool is_col2=CheckCollisision(plane_object.GetRect(),p_boss->GetRect());
+                    if(is_col==true || is_col2)
+                    {
+                        Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
+                        //Hiện ra thông báo GameOver khi va chạm
+                       SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose! You are stupid!", NULL);
 
 
-                        //Xóa nốt dữ liệu khi kết thúc
-                       delete [] p_threats;
-                       close();
-                       return 0;
+                            //Xóa nốt dữ liệu khi kết thúc
+                           delete [] p_threats;
+                           close();
+                           return 0;
 
 
                 }
@@ -201,6 +249,7 @@ int main(int argc, char* argv[]) {
                     if(p_amo!=NULL)
                     {
                         bool is_col2 = CheckCollisision(p_amo->GetRect(),p_threat->GetRect());// bool check va chạm
+
                         if(is_col2==true)// Khi đạn bắn trúng địch
                         {
                            game_score++;// Cập nhật điểm khi va chạm
@@ -210,8 +259,52 @@ int main(int argc, char* argv[]) {
                             //Render âm thanh khi va chạm
                             Mix_PlayChannel(-1,gEx1,0);
                         }
+                        if(game_score>=BOSS_RENDER){
+                        bool is_col_boss = CheckCollisision(p_amo->GetRect(), p_boss->GetRect());
+                            if (is_col_boss) {
+
+                                boss_life--;
+                                if (boss_life <= 0) {
+                                    boss_render=false;
+                                    // Thực hiện các hành động khác khi chiến thắng
+                                     Mix_PlayChannel(-1,gWin,0);
+                                    // In ra màn hình "You Win" khi boss_life = 0
+                                    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "You Win", "Congratulations! You defeated the boss!", NULL);
+                                    return 0;
+                                }
+                                // Reset vị trí của đạn
+                                plane_object.RemoveAmo(im);
+                                Mix_PlayChannel(-1, gBoss, 0); // Phát âm thanh khi va chạm
+                            }
+                        }
                     }
                 }
+
+
+
+                //Check va chạm đạn Boss với MainObject
+                std::vector<AmoObject*>boss_amo = p_boss->GetAmoList();
+                for (int j=0;j<boss_amo.size();j++)
+                {
+                    AmoObject* p_amo=boss_amo.at(j);
+                    if(p_amo)
+                    {
+                        bool is_colBoss=CheckCollisision(p_amo->GetRect(),plane_object.GetRect());
+                        if(is_colBoss)
+                        {
+                             //Reset vi trí đạn( Có thể viết hàm ResetAmo)
+                            Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);// Hien ra message khi thua
+
+                            //Xóa nốt dữ liệu khi kết thúc
+                            delete [] p_threats;
+                            close();
+                            return 0;
+                        }
+                    }
+
+                }
+
 
                 //Check va chạm đạn Threat với MainObject
                 std::vector<AmoObject*> bullet_list =p_threat->GetAmoList();// Lấy list đạn của MainObject
@@ -260,42 +353,61 @@ int main(int argc, char* argv[]) {
 
 void RenderScore(){
     //Render text
-        SDL_Color text_color1 ={255,0,0};// Màu chữ đỏ
-         std::string SCORE ="Score :" +std::to_string(game_score);
+    SDL_Color text_color1 ={255,0,0}; // Màu chữ đỏ
+    SDL_Color text_color2 ={0,0,255}; // Màu chữ xanh lam
 
-         SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, SCORE.c_str(), text_color1);
-            if (scoreSurface == nullptr) {
-            // Xử lý lỗi khi không thể tạo bề mặt văn bản
-            printf("Failed to create score surface! SDL_ttf Error: %s\n", TTF_GetError());
-            return ;
-        }
-                // Tạo texture từ surface
-            SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(gRenderer, scoreSurface);
-            if (scoreTexture == nullptr) {
-            // Xử lý lỗi khi không thể tạo texture từ surface
-            printf("Failed to create score texture! SDL Error: %s\n", SDL_GetError());
-            return ;
-        }
+    std::string SCORE ="Score: " + std::to_string(game_score);
+    std::string BOSS_LIFE = "Boss Life: " + std::to_string(boss_life);
 
-            // Lấy kích thước của surface văn bản
-            const int text_x =500;
-            const int text_y =20;
-            int textWidth = scoreSurface->w;
-            int textHeight = scoreSurface->h;
+    SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, SCORE.c_str(), text_color1);
+    if (scoreSurface == nullptr) {
+        // Xử lý lỗi khi không thể tạo bề mặt văn bản
+        printf("Failed to create score surface! SDL_ttf Error: %s\n", TTF_GetError());
+        return;
+    }
 
-            // Giải phóng surface văn bản không cần dùng nữa
-            SDL_FreeSurface(scoreSurface);
+    SDL_Surface* bossLifeSurface = TTF_RenderText_Solid(font, BOSS_LIFE.c_str(), text_color2);
+    if (bossLifeSurface == nullptr) {
+        // Xử lý lỗi khi không thể tạo bề mặt văn bản
+        printf("Failed to create boss life surface! SDL_ttf Error: %s\n", TTF_GetError());
+        return;
+    }
 
-            // Thiết lập vị trí hiển thị văn bản
-            SDL_Rect textRect = {text_x, text_y, textWidth, textHeight};
+    SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(gRenderer, scoreSurface);
+    if (scoreTexture == nullptr) {
+        // Xử lý lỗi khi không thể tạo texture từ surface
+        printf("Failed to create score texture! SDL Error: %s\n", SDL_GetError());
+        return;
+    }
 
-            // Vẽ texture văn bản lên màn hình
-            SDL_RenderCopy(gRenderer, scoreTexture, NULL, &textRect);
+    SDL_Texture* bossLifeTexture = SDL_CreateTextureFromSurface(gRenderer, bossLifeSurface);
+    if (bossLifeTexture == nullptr) {
+        // Xử lý lỗi khi không thể tạo texture từ surface
+        printf("Failed to create boss life texture! SDL Error: %s\n", SDL_GetError());
+        return;
+    }
 
-            // Giải phóng texture văn bản không cần dùng nữa
-            SDL_DestroyTexture(scoreTexture);
+    const int scoreTextX = 500;
+    const int scoreTextY = 20;
+    const int bossLifeTextX = 500;
+    const int bossLifeTextY = 40;
 
+    int scoreTextWidth = scoreSurface->w;
+    int scoreTextHeight = scoreSurface->h;
+    int bossLifeTextWidth = bossLifeSurface->w;
+    int bossLifeTextHeight = bossLifeSurface->h;
 
+    SDL_FreeSurface(scoreSurface);
+    SDL_FreeSurface(bossLifeSurface);
+
+    SDL_Rect scoreTextRect = {scoreTextX, scoreTextY, scoreTextWidth, scoreTextHeight};
+    SDL_Rect bossLifeTextRect = {bossLifeTextX, bossLifeTextY, bossLifeTextWidth, bossLifeTextHeight};
+
+    SDL_RenderCopy(gRenderer, scoreTexture, NULL, &scoreTextRect);
+    SDL_RenderCopy(gRenderer, bossLifeTexture, NULL, &bossLifeTextRect);
+
+    SDL_DestroyTexture(scoreTexture);
+    SDL_DestroyTexture(bossLifeTexture);
 }
 
 void RenderTime()

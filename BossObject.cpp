@@ -1,6 +1,5 @@
 
 
-
 #include "BossObject.h"
 
 //Ham khoi taos
@@ -35,15 +34,15 @@ BossObject :: ~BossObject()
 // Hàm tạo ảnh đạn
 void BossObject :: CreateAmo()
 {
+
     AmoObject *p_amo = new AmoObject();
     if(p_amo!=NULL)
     {
-        bool ret = p_amo -> LoadImg("picture/sphere2.png",gRenderer);
+        bool ret = p_amo -> LoadImg("picture/boss_amo.png",gRenderer);
         if(ret)
         {
             p_amo ->set_is_move(true);// trạng thái viên đạn
-            p_amo ->set_type (AmoObject::SPHERE);//loại đạn
-            p_amo ->SetWidthHeight(WIDTH_SPHERE,HEIGHT_SPHERE);// kích thước
+            p_amo ->SetWidthHeight(50,50);// kích thước
             p_amo ->set_x_val_(10);//tốc độ đạn
             p_amo ->SetRect(this->rect_.x ,this->rect_.y+rect_.h*0.5);//vị trí viên đạn
 
@@ -62,7 +61,7 @@ void BossObject :: FireAmo(SDL_Renderer* des,const int&x_limit,const int&y_limit
             // Set cho vật bắn đạn và không bắn thì vị trí <140 (tránh xả đạn lúc cuối)
             if(p_amo->get_is_move()==true && this->rect_.x >140 )
             {
-                p_amo->HandleMove2();// Xử lí đạn của ThreatObject
+                p_amo->HandleMove3();// Xử lí đạn của ThreatObject
                 p_amo ->Render(gRenderer);// Render đạn
             }
             else
@@ -74,8 +73,26 @@ void BossObject :: FireAmo(SDL_Renderer* des,const int&x_limit,const int&y_limit
     }
 }
 
-void BossObject :: HandleMove(const int& x_border,const int& y_border ) // Cho  boss di chuyển lên xuống lung tung
-{
+void BossObject :: HandleMove(){
+
+    // static để không reset lại true sau mỗi lần gọi
+   static bool moving_up = true; // Ban đầu, Boss di chuyển lên
+
+
+    if (moving_up) {
+        // Nếu Boss đang di chuyển lên
+        rect_.y -= y_val_;
+        if (rect_.y <= 0) { // Nếu Boss đến đỉnh màn hình thì đổi hướng
+            moving_up = false;
+        }
+    } else {
+        // Nếu Boss đang di chuyển xuống
+        rect_.y += y_val_;
+        if (rect_.y + rect_.h >= SCREEN_HEIGHT-100) { // Nếu Boss đến gần đáy thì đổi hướng
+            moving_up = true;
+        }
+    }
+
 
 }
 

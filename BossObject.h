@@ -1,5 +1,4 @@
 
-
 #ifndef BOSSOBJECT_H
 #define BOSSOBJECT_H
 #include<vector>
@@ -17,7 +16,7 @@ public :
     BossObject();
     ~BossObject();
      // Xử lí di chuyển
-     void HandleMove(const int& x_border,const int& y_border );
+     void HandleMove ();
 
 
     //Setter va Getter cho x_val, y_val

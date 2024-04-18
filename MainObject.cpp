@@ -42,8 +42,8 @@
                 //Khi nút space được ấn thì đệ tử bắn đạn (Thực ra vẫn là MainObject bắn thôi :)) )
                 case SDLK_SPACE:
                     AmoObject *p_amo  = new AmoObject();
-                    p_amo->LoadImg("picture/laser2.png",gRenderer);
-                    p_amo->SetRectSize(36,5);
+                    p_amo->LoadImg("picture/sphere.png",gRenderer);
+                    p_amo->SetRectSize(WIDTH_SPHERE,WIDTH_SPHERE);
                     p_amo ->SetRect(this->rect_.x +WIDTH_MAIN_OBJECT-35 ,this->rect_.y+HEIGHT_MAIN_OBJECT*0.8+40);
                     p_amo ->set_x_val_(10);
                     p_amo ->set_is_move(true);
@@ -82,7 +82,7 @@
 
                  p_amo->LoadImg("picture/rocket1.png",gRenderer);
                  p_amo->SetRectSize(36,5);
-                 p_amo->set_type(AmoObject::LASER);
+
                  //Mix_PlayChannel(-1, gGun1, 0);// Chạy âm thanh khi ấn chuột
             }
             else if(events.button.button==SDL_BUTTON_RIGHT)
@@ -90,7 +90,7 @@
 
                  p_amo->LoadImg("picture/rocket2.png",gRenderer);
                  p_amo->SetRectSize(72,12);
-                 p_amo->set_type(AmoObject::SPHERE);
+
                  //Mix_PlayChannel(-1, gGun2, 0);// Chạy âm thanh khi ấn chuột
             }
             p_amo ->SetRect(this->rect_.x +WIDTH_MAIN_OBJECT-35 ,this->rect_.y+HEIGHT_MAIN_OBJECT*0.8);
@@ -145,6 +145,23 @@
         if (rect_.y < 0 || rect_.y + HEIGHT_MAIN_OBJECT > SCREEN_HEIGHT - 100)
             rect_.y -= y_val_ ;
     }
+
+   void MainObject::HandleMove_Thienthach()
+{
+    rect_.y += speed;
+    rect_.x-=speed;
+    if (rect_.y >= SCREEN_HEIGHT)
+    {
+        rect_.y = 0;
+       int  ranNum = rand() % SCREEN_WIDTH ;
+        if(ranNum<100)
+            ranNum+=50;
+        else if(ranNum>SCREEN_WIDTH-50);
+            ranNum-=50;
+        rect_.x=ranNum;
+    }
+}
+
 
     //Xóa đạn
     void MainObject::RemoveAmo(const int &idx)

@@ -16,7 +16,10 @@ static const int SCREEN_WIDTH = 1200;
 static const int SCREEN_HEIGHT = 600;
 static const int SCREEN_BPP = 32;
 static const int SCREEN_SPEED =2;
-
+static int BOSS_LIFE =3;
+static int BOSS_RENDER=2;
+static int THEORITE_NUM=2;
+static bool boss_render=false;
 const int NUM_THREAT = 4; // So luong ThreatObject;
 
 // Các biến toàn cục
@@ -31,9 +34,10 @@ static const int COLOR_KEY_B = 0xff;
 static Mix_Chunk* gGun1=NULL;// Âm thanh cho đạn 1
 static Mix_Chunk* gGun2=NULL;// Âm thanh cho đạn 2
 static Mix_Chunk* gEx1=NULL;  // Âm thanh cho nổ 1
-static  Mix_Chunk* gEx2=NULL; // Âm thanh cho nổ 2
+static Mix_Chunk* gEx2=NULL; // Âm thanh cho nổ 2
+static Mix_Chunk* gBoss=NULL;// Âm thanh cho trúng boss
+static Mix_Chunk* gWin=NULL; //Âm thanh cho win
 
-// Hàm khởi tạo và giải phóng
 
 SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh (giong loadImage)
 bool loadMedia(); // Tải tất cả các tài nguyên cần thiết

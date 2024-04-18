@@ -16,7 +16,6 @@ public:
     SDL_Texture* GetObject() const; // Lấy con trỏ đến texture của đối tượng
     void Render(SDL_Renderer* render, const SDL_Rect* clip = NULL); // Vẽ texture lên renderer
     void Move();
-
     void free(); // Giải phóng texture
 
 protected:

@@ -20,6 +20,7 @@ public:
 
     void HandleInputAction(SDL_Event events);
     void HandleMove();
+    void HandleMove_Thienthach();
     void HandleAmo(SDL_Renderer* des );
     void SetAmoList(std::vector<AmoObject*>amo_list){p_amo_list=amo_list;}
     std::vector<AmoObject*> GetAmoList() const {return p_amo_list;}
