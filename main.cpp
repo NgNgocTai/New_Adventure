@@ -82,8 +82,9 @@ int main(int argc, char* argv[]) {
 
     // Tạo đối tượng background
     BaseObject background;
-    bool ret1 = background.LoadImg("picture/bg4800.png", gRenderer);
+    bool ret1 = background.LoadImg("picture/background.png", gRenderer);
     if (!ret1) return 0;
+    background.SetRectSize(WIDTH_BACKGROUND,HEIGHT_BACKGROUND);
 
     // Tạo đối tượng nhân vật
     MainObject plane_object;
