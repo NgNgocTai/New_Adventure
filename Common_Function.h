@@ -17,7 +17,7 @@ static const int SCREEN_HEIGHT = 600;
 static const int SCREEN_BPP = 32;
 static const int SCREEN_SPEED =2;
 static int BOSS_LIFE =3;
-static int BOSS_RENDER=2;
+static int BOSS_RENDER=10;
 static int THEORITE_NUM=2;
 static bool boss_render=false;
 const int NUM_THREAT = 4; // So luong ThreatObject;
@@ -30,6 +30,8 @@ extern SDL_Renderer* gRenderer;
 static const int COLOR_KEY_R = 0;
 static const int COLOR_KEY_G = 0xff;
 static const int COLOR_KEY_B = 0xff;
+
+static SDL_Texture* g_menu =NULL;
 
 static Mix_Chunk* gGun1=NULL;// Âm thanh cho đạn 1
 static Mix_Chunk* gGun2=NULL;// Âm thanh cho đạn 2

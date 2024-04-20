@@ -79,8 +79,15 @@
             if(events.button.button==SDL_BUTTON_LEFT)
             {
 
+                 if(!boss_render){
+                    p_amo->LoadImg("picture/rocket1.png",gRenderer);
 
-                 p_amo->LoadImg("picture/rocket1.png",gRenderer);
+                 }
+                 else {
+                     p_amo->LoadImg("picture/amo3.png",gRenderer);
+
+                 }
+
                  p_amo->SetRectSize(36,5);
 
                  //Mix_PlayChannel(-1, gGun1, 0);// Chạy âm thanh khi ấn chuột
@@ -88,7 +95,10 @@
             else if(events.button.button==SDL_BUTTON_RIGHT)
              {
 
+                if(!boss_render)
                  p_amo->LoadImg("picture/rocket2.png",gRenderer);
+                else
+                 p_amo->LoadImg("picture/amo2.png",gRenderer);
                  p_amo->SetRectSize(72,12);
 
                  //Mix_PlayChannel(-1, gGun2, 0);// Chạy âm thanh khi ấn chuột
@@ -116,7 +126,6 @@
                 {
                    p_amo->HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);// Xử lí di chuyển
                    p_amo->Render(des);// Render đạn
-
                 }
                 else
                 {

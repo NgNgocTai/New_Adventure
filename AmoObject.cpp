@@ -39,7 +39,7 @@ void AmoObject::HandleMove3()
     static bool moving_up =true;
     if(moving_up)
     {
-        rect_.x-=x_val_;
+        rect_.x-=x_val_/2;
         rect_.y-=x_val_;
         if(rect_.y<=0)
         {
@@ -48,7 +48,7 @@ void AmoObject::HandleMove3()
     }
     else
     {
-        rect_.x-=x_val_;
+        rect_.x-=x_val_/2;
         rect_.y+=x_val_;
         if(rect_.y>=SCREEN_HEIGHT-100)
         {
@@ -58,6 +58,7 @@ void AmoObject::HandleMove3()
     if(rect_.x <0)is_move_=false;
 
 }
+
 
 void AmoObject:: HandleInputAction(SDL_Event events)
 {

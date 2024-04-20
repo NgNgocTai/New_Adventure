@@ -430,7 +430,7 @@
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 
-1713629612 source:c:\users\admin\desktop\game_project\main.cpp
+1713629751 source:c:\users\admin\desktop\game_project\main.cpp
 	<SDL.h>
 	<stdio.h>
 	"BaseObject.h"
@@ -443,7 +443,7 @@
 1713461297 source:c:\users\admin\desktop\game_project\common_function.cpp
 	"Common_Function.h"
 
-1713461154 c:\users\admin\desktop\game_project\common_function.h
+1713630319 c:\users\admin\desktop\game_project\common_function.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -467,7 +467,7 @@
 	"AmoObject.h"
 	<vector>
 
-1713461112 source:c:\users\admin\desktop\game_project\amoobject.cpp
+1713630019 source:c:\users\admin\desktop\game_project\amoobject.cpp
 	"AmoObject.h"
 
 1713461140 c:\users\admin\desktop\game_project\amoobject.h
