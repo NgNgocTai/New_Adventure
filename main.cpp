@@ -9,7 +9,7 @@
 TTF_Font *font =NULL;
 int game_score=0;//Điểm khi bắt đầu game
 int boss_life=BOSS_LIFE;
-
+bool change=false;
 
 void RenderScore();// Render điểm
 void RenderTime();
@@ -214,6 +214,16 @@ int main(int argc, char* argv[]) {
             boss_render=true;
         }
 
+        //Gặp boss và chưa đánh dấu thì update outfit mới cho nhân vật
+            if (boss_render && !change) {
+                change=true;
+                bool rett = plane_object.LoadImg("picture/airplane3.png", gRenderer);
+                plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
+                if (!rett) return 0;
+                bool ret =plane2_object.LoadImg("picture/flappybird.png",gRenderer);
+                plane2_object.SetRectSize(40,40);//Thiết lập kích thước ban đầu của đệ tử
+                if(!ret)return 0;
+        }
 
         //Render Threat
         for(int tt=0;tt<NUM_THREAT;tt++)
