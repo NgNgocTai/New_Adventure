@@ -8,11 +8,12 @@
 #include "BossObject.h"
 TTF_Font *font =NULL;
 int game_score=0;//Điểm khi bắt đầu game
-int boss_life=BOSS_LIFE;
 bool change=false;
+
 
 void RenderScore();// Render điểm
 void RenderTime();
+int ShowMenu(SDL_Renderer *des);
 // Hàm khởi tạo SDL và cửa sổ
 bool init() {
     // Khởi tạo SDL_VIDEO để sử dụng video
@@ -80,6 +81,7 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
+
     // Tạo đối tượng background
     BaseObject background;
     bool ret1 = background.LoadImg("picture/background.png", gRenderer);
@@ -88,8 +90,11 @@ int main(int argc, char* argv[]) {
 
     // Tạo đối tượng nhân vật
     MainObject plane_object;
-    bool ret2 = plane_object.LoadImg("picture/airplane2.png", gRenderer);
-    if (!ret2) return 0;
+    if(!boss_render){
+        bool ret2 = plane_object.LoadImg("picture/airplane2.png", gRenderer);
+        if (!ret2) return 0;
+    }
+
     plane_object.SetRect(100, 200); // Thiết lập vị trí ban đầu của nhân vật
     plane_object.SetRectSize(80,46);// Thiết lập kích thước ban đầu của nhân vật
 
@@ -147,6 +152,10 @@ int main(int argc, char* argv[]) {
 
     unsigned int mark_value=0;
 
+    int ret_menu= ShowMenu(gRenderer);
+    if(ret_menu==1)
+        quit=true;
+
     while (!quit) {
         // Xử lý sự kiện
         while (SDL_PollEvent(&e) != 0) {
@@ -172,9 +181,12 @@ int main(int argc, char* argv[]) {
         }
 
 
+
+
         // Clear screen
         SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(gRenderer);
+
 
         // Render background
         background.Render(gRenderer);
@@ -192,9 +204,10 @@ int main(int argc, char* argv[]) {
            theorites[tr].HandleMove_Thienthach();
            if(boss_render)
             {
-                theorites[tr].Render(gRenderer);
-            }
-       }
+                    theorites[tr].Render(gRenderer);
+
+
+       }}
 
 
         // Xử lý di chuyển của các đạn( bắt buộc phải để sau background và plane_object)
@@ -212,8 +225,8 @@ int main(int argc, char* argv[]) {
             p_boss->FireAmo(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT);//Bắn đạn
             p_boss->HandleMove();
             boss_render=true;
-        }
 
+        }
         //Gặp boss và chưa đánh dấu thì update outfit mới cho nhân vật
             if (boss_render && !change) {
                 change=true;
@@ -274,8 +287,8 @@ int main(int argc, char* argv[]) {
                         bool is_col_boss = CheckCollisision(p_amo->GetRect(), p_boss->GetRect());
                             if (is_col_boss) {
 
-                                boss_life--;
-                                if (boss_life <= 0) {
+                               BOSS_LIFE--;
+                                if (BOSS_LIFE <= 0) {
                                     boss_render=false;
                                     // Thực hiện các hành động khác khi chiến thắng
                                      Mix_PlayChannel(-1,gWin,0);
@@ -344,16 +357,20 @@ int main(int argc, char* argv[]) {
 
 
            }
+
        }
+
         RenderScore(); // In điểm ra màn hình
         RenderTime(); // Hiện thời gian ra màn hình
+
 
 
         // Update screen
         SDL_RenderPresent(gRenderer);
         SDL_Delay(12);
 
-    }
+        }
+
     delete [] p_threats;
 
     // Giải phóng các resource và đóng SDL
@@ -368,7 +385,7 @@ void RenderScore(){
     SDL_Color text_color2 ={0,0,255}; // Màu chữ xanh lam
 
     std::string SCORE ="Score: " + std::to_string(game_score);
-    std::string BOSS_LIFE = "Boss Life: " + std::to_string(boss_life);
+    std::string BOSS = "Boss Life: " + std::to_string(BOSS_LIFE);
 
     SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, SCORE.c_str(), text_color1);
     if (scoreSurface == nullptr) {
@@ -377,7 +394,7 @@ void RenderScore(){
         return;
     }
 
-    SDL_Surface* bossLifeSurface = TTF_RenderText_Solid(font, BOSS_LIFE.c_str(), text_color2);
+    SDL_Surface* bossLifeSurface = TTF_RenderText_Solid(font, BOSS.c_str(), text_color2);
     if (bossLifeSurface == nullptr) {
         // Xử lý lỗi khi không thể tạo bề mặt văn bản
         printf("Failed to create boss life surface! SDL_ttf Error: %s\n", TTF_GetError());
@@ -448,7 +465,8 @@ void RenderTime()
     // Tạo texture từ surface
     SDL_Texture* timeTexture = SDL_CreateTextureFromSurface(gRenderer, timeSurface);
     if (timeTexture == nullptr) {
-        // Xử lý lỗi khi không thể tạo texture từ surface
+        // Xử lý lỗi k
+       // hi không thể tạo texture từ surface
         printf("Failed to create time texture! SDL Error: %s\n", SDL_GetError());
         return;
     }
@@ -472,5 +490,58 @@ void RenderTime()
     SDL_DestroyTexture(timeTexture);
 }
 
+int ShowMenu(SDL_Renderer *des)
+{
+    int xm = 0, ym = 0;
+    BaseObject menu;
+    bool m = menu.LoadImg("picture/menu.png", gRenderer);
+    if (!m) return 0;
+    menu.SetRectSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+    SDL_Event event;
+    bool quit = false;
+    while (!quit)
+    {
+        while (SDL_PollEvent(&event))
+        {
+
+            switch (event.type)
+            {
+            case SDL_QUIT:
+                return 1;
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                {
+                    // Lấy tọa độ chuột
+                    xm = event.motion.x;
+                    ym = event.motion.y;
+
+                    if (xm >= 530 && xm <= 691 && ym >= 337 && ym <= 375)
+                    {
+                        menu.free();
+                        return 0; // Trả về 0 khi ấn play_game
+                    }
+                    else if (xm >= 534 && xm <= 688 && ym >= 411 && ym <= 449)
+                    {
+                        return 1; // Trả về 1 khi ấn Exit
+                    }
+                }
+                break;
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_ESCAPE)
+                {
+                    return 1; // Trả về 1 khi ấn Exit
+                }
+                break;
+            default:
+                break;
+            }
+
+        }
+        menu.Render(gRenderer);
+        SDL_RenderPresent(gRenderer);
+    }
+
+    return 1; // Trả về 1 để cho biết menu đã được đóng
+}
 
