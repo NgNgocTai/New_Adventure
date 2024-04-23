@@ -22,30 +22,59 @@ Air World là một trò chơi bắn nhau trên không nhằm tiêu diệt hết
 ### **Control**
 
 - Game chỉ có tác vụ cơ bản là di chuyển và bắn ra đạn
--  <img src="image(ReadMe)/Move.png" alt="GitHub" width="50" height="50">Là các nút di chuyển nhân vật lên , xuống , trái , phải cho game
   
-- <img src="image(ReadMe)/Mouse.png" alt="GitHub" width="50" height="50">Click chuột trái phải để có thể bắn ra được các loại đạn khác nhau
+  <img src="image(ReadMe)/Move.png" alt="GitHub" width="50" height="50">  Là các nút di chuyển nhân vật lên , xuống , trái , phải cho game
+  
+  <img src="image(ReadMe)/Mouse.png" alt="GitHub" width="50" height="50">Click chuột trái phải để có thể bắn ra được các loại đạn khác nhau
 - Khi gặp boss trong game thì background + nhân vật bạn sẽ tự động được thay đổi giao diện cho ngầu ( hehe)
 
 ### **CÁC THÀNH PHẦN TRONG GAME**
 
 - MainObject : Chính là bạn , 1 hình ảnh là bạn khi chưa gặp Boss và hình còn lại là khi bạn đã gặp Boss
+  
+  <img src="picture/airplane2.png " alt="GitHub" width="100" height="75"> <img src="picture/airplane3.png" alt="Airplane 3" width="100" height="75">
 - Đệ tử :Chính là trợ thủ của bạn , 1 hình ảnh là khi chưa gặp Boss và hình còn lại là khi bạn đã gặp Boss
+  
+    <img src="picture/plane_fly1.png " alt="GitHub" width="100" height="75"> <img src="picture/flappybird.png" width="100" height="75">
 - Threat (Đối tượng hiểm họa) : là các kẻ thù mà bạn phải tiêu diệt trên đường đi
+  
+    <img src="picture/Threat2.png " alt="GitHub" width="100" height="75"> 
 - Boss (Trùm cuối) : là kẻ địch cuối cùng mà bạn phải đánh bại để dành chiến thắng . Bên trái là Boss khi còn nhiều mạng, bên phải là Boss khi chỉ còn có 1 mạng thôi
+  
+    <img src="picture/boss.png " alt="GitHub" width="100" height="75">       <img src="picture/boss2.png" width="100" height="75">
+
 - Các loại đạn :
+  +) Khi ấn Space thì đạn của đệ sẽ bay ra :
+  
+    <img src="picture/sphere.png" alt="GitHub" width="50" height="50"> 
+    
+  +) Khi bạn ấn chuột trái thì đạn sẽ trông như này :
+  
+    <img src="picture/rocket1.png" alt="GitHub" width="100" height="75"> 
 
-  +) Khi bạn ấn chuột trái thì đạn sẽ trông như này
+  +) Khi bạn ấn chuột phải thì đạn sẽ trông như này :
+  
+    <img src="picture/rocket2.png" alt="GitHub" width="100" height="75"> 
+    
+  +)Đạn của Threat thì trông như này :
+  
+    <img src="picture/sphere2.png" alt="GitHub" width="50" height="50"> 
 
-  +) Khi bạn ấn chuột phải thì đạn sẽ trông như này
+  +)Đạn của Boss cuối với quỹ đạo ảo diệu thì trông như này :
 
-  +)Đạn của Threat thì trông như này
-
-  +)Đạn của Boss cuối với quỹ đạo ảo diệu thì trông như này
+    <img src="picture/boss_amo.png" alt="GitHub" width="100" height="75"> 
+   
 
 \-Background :Đây là hình ảnh của 2 background trước khi bạn gặp Boss và sau khi bạn gặp Boss
 
+   <img src="picture/background.png " alt="GitHub" width="600" height="73">  
+  
+   <img src="picture/backgroundn.png" alt="GitHub" width="600" height="73">
+
+
 \-Thiên thạch :Là vật cản sẽ xuất hiện khi mà bạn gặp Boss, rất khó chịu bởi chị cần lại gần thôi là bạn đã die rồi.
+
+   <img src="picture/thienthach.png" alt="GitHub" width="100" height="75"> 
 
 \- Score : lưu lại số lượng địch bạn đã tiêu diệt
 
