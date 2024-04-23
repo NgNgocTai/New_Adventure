@@ -205,7 +205,17 @@ int main(int argc, char* argv[]) {
            if(boss_render)
             {
                     theorites[tr].Render(gRenderer);
+                    bool is_theorite=CheckCollisision(theorites[tr].GetRect(),plane_object.GetRect());
+                        if(is_theorite)
+                        {
 
+                            Mix_PlayChannel(-1,gEx2,0);// Hiện âm thanh khi va chạm
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game Over", "You Lose!", NULL);// Hien ra message khi thua
+
+                            //Xóa nốt dữ liệu khi kết thúc
+                            close();
+                            return 0;
+                        }
 
        }}
 
