@@ -246,7 +246,17 @@ int main(int argc, char* argv[]) {
                 bool ret =plane2_object.LoadImg("picture/flappybird.png",gRenderer);
                 plane2_object.SetRectSize(40,40);//Thiết lập kích thước ban đầu của đệ tử
                 if(!ret)return 0;
-        }
+                 bool re = background.LoadImg("picture/backgroundn.png", gRenderer);
+                if (!re) return 0;
+                background.SetRectSize(WIDTH_BACKGROUND,HEIGHT_BACKGROUND);
+            }
+
+            if(boss_render && BOSS_LIFE==1)
+            {
+                bool rett=p_boss ->LoadImg("picture/boss2.png",gRenderer);
+                if(!rett)return 0;
+                p_boss->SetRectSize(WIDTH_MAIN_OBJECT*3,HEIGHT_MAIN_OBJECT*3);
+            }
 
         //Render Threat
         for(int tt=0;tt<NUM_THREAT;tt++)
