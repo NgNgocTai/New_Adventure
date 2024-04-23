@@ -98,6 +98,7 @@ Air WAR là một trò chơi bắn nhau trên không nhằm tiêu diệt hết t
     <img src="image(ReadMe)/game2.png" alt="GitHub" width="350" height="200">
 
 - Khi Boss cuối còn 1 mạng thì nó cũng sẽ biến hình để tiêu diệt bạn với size khủng hơn + đạn to hơn
+- 
      <img src="image(ReadMe)/game3.png" alt="GitHub" width="350" height="200">
 
 - Nếu như bạn không may va vào địch , boss, hay thiên thạch hay bị trúng đạn thì bạn sẽ thua ngay lập tức(do bạn chỉ có 1 mạng) và nó sẽ hiện lên 1 dòng thông báo + âm thanh :
