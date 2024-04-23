@@ -22,27 +22,64 @@ Air World là một trò chơi bắn nhau trên không nhằm tiêu diệt hết
 ### **Control**
 
 - Game chỉ có tác vụ cơ bản là di chuyển và bắn ra đạn
-- Là các nút di chuyển nhân vật lên , xuống , trái , phải cho game
-- Click chuột trái phải để có thể bắn ra được các loại đạn khác nhau
+-  <img src="image(ReadMe)/Move.png" alt="GitHub" width="50" height="50">Là các nút di chuyển nhân vật lên , xuống , trái , phải cho game
+  
+- <img src="image(ReadMe)/Mouse.png" alt="GitHub" width="50" height="50">Click chuột trái phải để có thể bắn ra được các loại đạn khác nhau
 - Khi gặp boss trong game thì background + nhân vật bạn sẽ tự động được thay đổi giao diện cho ngầu ( hehe)
+
+### **CÁC THÀNH PHẦN TRONG GAME**
+
+- MainObject : Chính là bạn , 1 hình ảnh là bạn khi chưa gặp Boss và hình còn lại là khi bạn đã gặp Boss
+- Đệ tử :Chính là trợ thủ của bạn , 1 hình ảnh là khi chưa gặp Boss và hình còn lại là khi bạn đã gặp Boss
+- Threat (Đối tượng hiểm họa) : là các kẻ thù mà bạn phải tiêu diệt trên đường đi
+- Boss (Trùm cuối) : là kẻ địch cuối cùng mà bạn phải đánh bại để dành chiến thắng . Bên trái là Boss khi còn nhiều mạng, bên phải là Boss khi chỉ còn có 1 mạng thôi
+- Các loại đạn :
+
+  +) Khi bạn ấn chuột trái thì đạn sẽ trông như này
+
+  +) Khi bạn ấn chuột phải thì đạn sẽ trông như này
+
+  +)Đạn của Threat thì trông như này
+
+  +)Đạn của Boss cuối với quỹ đạo ảo diệu thì trông như này
+
+\-Background :Đây là hình ảnh của 2 background trước khi bạn gặp Boss và sau khi bạn gặp Boss
+
+\-Thiên thạch :Là vật cản sẽ xuất hiện khi mà bạn gặp Boss, rất khó chịu bởi chị cần lại gần thôi là bạn đã die rồi.
+
+\- Score : lưu lại số lượng địch bạn đã tiêu diệt
+
+\- BOSS_LIFE : ghi lại số mạng của trùm cuối
+
+\-Time : Lưu thời gian mà bạn đã chơi
 
 **Nội dung game + một vài hình ảnh của game:**
 
 - Mở đầu game là một cái menu hiện lên , bạn có thể vào chơi bằng cách ấn START FLY, và out khỏi game thì bấm EXIT.
+  <img src="image(ReadMe)/background.png" alt="GitHub" width="350" height="200">
+  
 - Tiếp đến khi vào game là bạn sẽ tham gia vào cuộc chiến bắn địch trên bầu trời, khi bắn trúng thì sẽ có âm thanh phát ra và địch bị biến mất đi.
+  Bên cạnh đó đồng hành cùng bạn là 1 con đệ tử gíup bạn tiêu diệt những con quái mà nhân vật chính thấy hơi khó bắn. Bấm Space để nhả đạn nhé!
 
-Bên cạnh đó đồng hành cùng bạn là 1 con đệ tử gíup bạn tiêu diệt những con quái mà nhân vật chính thấy hơi khó bắn. Bấm Space để nhả đạn nhé!
+  <img src="image(ReadMe)/game1.png" alt="GitHub" width="350" height="200">
 
 - Khi bạn bắn đến 1 số điểm nhất định thì Boss sẽ xuất hiện và đồng thời nó cũng triệu hồi thiên thạch rơi xuống để tấn công bạn, lưu ý rằng đạn của Boss cuối bay với 1 quỹ đạo khá là dị nên sẽ đem lại đôi chút khó khăn cho bạn đấy .
 - Bên cạnh đó khi boss xuất hiện thì bạn cũng sẽ có được diện mạo mới cho nhân vật + đệ tử đó .
-- Khi Boss cuối còn 1 mạng thì nó cũng sẽ biến hình để tiêu diệt bạn với size khủng hơn + đạn to hơn
-- Nếu như bạn không may va vào địch , boss, hay thiên thạch hay bị trúng đạn thì bạn sẽ thua ngay lập tức(do bạn chỉ có 1 mạng) và nó sẽ hiện lên 1 dòng thông báo + âm thanh :
 
+    <img src="image(ReadMe)/game2.png" alt="GitHub" width="350" height="200">
+
+- Khi Boss cuối còn 1 mạng thì nó cũng sẽ biến hình để tiêu diệt bạn với size khủng hơn + đạn to hơn
+     <img src="image(ReadMe)/game3.png" alt="GitHub" width="350" height="200">
+
+- Nếu như bạn không may va vào địch , boss, hay thiên thạch hay bị trúng đạn thì bạn sẽ thua ngay lập tức(do bạn chỉ có 1 mạng) và nó sẽ hiện lên 1 dòng thông báo + âm thanh :
 \->Bấm ok và run lại game để chơi lại
+
+  <img src="image(ReadMe)/gameover.png" alt="GitHub" width="200" height="150">
 
 - Còn nếu như bạn thành công tiêu diệt boss cuối thì sẽ hiện dòng thông báo + âm thanh sau :
-
 \->Bấm ok và run lại game để chơi lại
+
+  <img src="image(ReadMe)/gamewin.png" alt="GitHub" width="200" height="150">
 
 ## Các kỹ thuật lập trình đã sử dụng
 
