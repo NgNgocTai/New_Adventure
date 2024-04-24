@@ -58,6 +58,7 @@ bool init() {
     gEx2=Mix_LoadWAV("sound/Explosion2.wav");
     gWin=Mix_LoadWAV("sound/Congratulation.wav");
     gBoss=Mix_LoadWAV("sound/Explosion+5.wav");
+    gMusic=Mix_LoadWAV("sound/music.wav");
     //Init text
     if(TTF_Init()==-1){return false;}
 
@@ -149,7 +150,7 @@ int main(int argc, char* argv[]) {
     // Main loop
     bool quit = false;
     SDL_Event e;
-
+     Mix_PlayChannel(-1,gMusic,0);// Hiện nhạc
     unsigned int mark_value=0;
 
     int ret_menu= ShowMenu(gRenderer);
@@ -157,6 +158,7 @@ int main(int argc, char* argv[]) {
         quit=true;
 
     while (!quit) {
+
         // Xử lý sự kiện
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {

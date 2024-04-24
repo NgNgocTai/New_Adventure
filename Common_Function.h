@@ -39,7 +39,7 @@ static Mix_Chunk* gEx1=NULL;  // Âm thanh cho nổ 1
 static Mix_Chunk* gEx2=NULL; // Âm thanh cho nổ 2
 static Mix_Chunk* gBoss=NULL;// Âm thanh cho trúng boss
 static Mix_Chunk* gWin=NULL; //Âm thanh cho win
-
+static Mix_Chunk* gMusic=NULL; //Âm thanh cho nhac
 
 SDL_Texture* loadTexture(std::string path); // Tải texture từ đường dẫn ảnh (giong loadImage)
 bool loadMedia(); // Tải tất cả các tài nguyên cần thiết
