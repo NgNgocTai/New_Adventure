@@ -111,21 +111,69 @@ Air WAR là một trò chơi bắn nhau trên không nhằm tiêu diệt hết t
 
   <img src="image(ReadMe)/gamewin.png" alt="GitHub" width="200" height="150">
 
+**GIẢI THÍCH VỀ CÁC FOLDER**
+
+- **Folder picture** : chứa ảnh của game
+- **Folder sound** : chứa âm thanh của game
+- **Folder image(ReadMe)** : chứa các hình ảnh phục vụ cho ReadMe
+- **Folder obj** : chứa các file game
+
+**GIẢI THÍCH VỀ SOURCE CODE**
+
+- **Common_Function**: chứa các hàm cơ bản để dùng cho các đối tượng khác nhau ở trong game + chứa các biến toàn cục sử dụng cho mọi chỗ trong code
+    - loadTexture : dùng để tải texture từ đường dẫn
+    - checkCollision: kiểm tra va chạm giữa các vật trong game
+    - close : đóng và kết thúc SDL và giải phóng bộ nhớ của game
+- **BaseObject** : là lớp đại diện cho một đối tượng cơ bản trong trò chơi, tức là các lớp đối tượng khác sẽ kế thừa lại những tính chất cơ bản của lớp này .
+    - LoadImg : Tải hình ảnh và tạo texture cho game
+    - SetRect : Thiết lập vị trí ban đầu của đối tượng
+    - SetRectSize: Thiết lập kích thước đối tượng
+    - SDL_Rect GetRect():Lấy vị trí của đối tượng
+    - SDL_Texture\* GetObject: Lấy con trỏ đến texture của đối tượng
+    - void Render: Vẽ texture lên renderer
+    - void Move(): Xử lí di chuyển
+    - void free(): giải phóng texture
+- **MainObject** : là lớp đại diện cho nhân vật chính của bạn, được kế thừa những tính chất cơ bản sẵn có của BaseObject kia + tính năng khác
+    - HandleInputAction: Xử lí sự kiện từ chuột + bàn phím
+    - HandleMove(), HandleMove_Thienthach():xử lí di chuyển nhân vật và thiên thạch
+    - HandleAmo(), SetAmoList(),GetAmoList(): Liên quan đến xử lí đạn . RemoveAmo() thì dùng để xóa đạn khi dùng xong
+
+\-**ThreatObject:** là lớp đối tượng hiểm họa cũng được kế thừa từ BaseObject và có những hàm khác như :
+
+    - HandleMove(): xử lí di chuyển của ThreatObject: hơi khác so với của nhân vật bởi nhân vật là do người chơi điều khiển còn ThreatObject thì di chuyển theo quy luật nhất định
+    - Các hàm lấy và set vị trí cho ThreatObject
+    - CreateAmo() , FireAmo() SetAmoList(),GetAmoList(), Reset(): Liên quan đến việc tạo đạn, bắn đạn, lấy đạn và Reset lại đạn sau khi bắn của ThreatObject
+
+\-**AmoObject**: là lớp đối tượng liên quan tới đạn cho các đối tượng khác ( nhân vật, Threat, Boss)
+
+    - Có các hàm HandleMove() khác nhau để xử lí di chuyển đạn của các đối tượng khác nhau (ThreatObject, Boss,..)
+    - Hàm SetWidthHeight để thiết lập chiều cao , chiều rộng của đạn
+    - Các hàm get, set cho trạng thái di chuyển của đạn (true: di chuyển , false: 0 di chuyển ) và cả set, get cho tốc độ của đạn
+
+\-**BossObject**: là lớp đối tượng cho trùm cuối, lớp này cũng được kế thừa từ lớp BaseObject và có các hàm khá là tương đồng với lớp ThreatObject.
+
+\-**main.cpp**: Chứa các hàm
+
+    - init() để khởi tạo game,
+    - RenderScore() để in điểm lên màn hình,
+    - RenderTime() để hiển thị thời gian chơi game,
+    - ShowMenu() để hiện Menu của game +
+    - Đồng thời là nơi tổng hợp mọi thứ để thiết lập và chạy được game.
 ## Các kỹ thuật lập trình đã sử dụng
 
-- Vector, con trỏ
-- Xử lý va chạm (Còn chưa được chuẩn lắm)
-- SDL2 (SLD2_image, SDL2_mixer, SLD2_ttf)
-- Kỹ thuật Texture font, Mouse event, Key event
-- Sound Effects and Music
-- Vòng lặp
-- Mảng tĩnh
-- Xâu
-- Chia file cho dễ quản lý
-- Kế thừa trong Class
+    - Vector, con trỏ
+    - Xử lý va chạm (Còn chưa được chuẩn lắm)
+    - SDL2 (SLD2_image, SDL2_mixer, SLD2_ttf)
+    - Kỹ thuật Texture font, Mouse event, Key event
+    - Sound Effects and Music
+    - Vòng lặp
+    - Mảng tĩnh
+    - Xâu
+    - Chia file cho dễ quản lý
+    - Kế thừa trong Class
 
 ## Kết luận
 
-- Ý tưởng của game được tham khảo ở <https://phattrienphanmem123az.com/> (phiên bản SDL cũ) + tự học trên Lazyfoo + tự code lại bằng SDL2 + phát triển thêm 1 số tính năng ( menu + âm thanh + boss ,….)
-- Học được cách sử dụng C++ và SDL2 để tự tạo được một game cơ bản cho bản thân
-- Biết cách chia nhỏ file + class để dễ quản lý dự án hơn
+    - Ý tưởng của game được tham khảo ở <https://phattrienphanmem123az.com/> (phiên bản SDL cũ) + tự học trên Lazyfoo + tự code lại bằng SDL2 + phát triển thêm 1 số tính năng ( menu + âm thanh + boss ,….)
+    - Học được cách sử dụng C++ và SDL2 để tự tạo được một game cơ bản cho bản thân
+    - Biết cách chia nhỏ file + class để dễ quản lý dự án hơn
