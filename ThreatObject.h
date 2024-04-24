@@ -16,7 +16,6 @@ public:
     ~ThreatObject();
     //Xu ly di chuyen
     void HandleMove(const int& x_border,const int& y_border );
-    void HandleInputAction(SDL_Event events);
 
     //Setter va Getter cho x_val, y_val
     void set_x_val(const int& x){x_val_=x;}

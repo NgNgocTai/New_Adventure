@@ -60,7 +60,3 @@ void AmoObject::HandleMove3()
 }
 
 
-void AmoObject:: HandleInputAction(SDL_Event events)
-{
-
-}

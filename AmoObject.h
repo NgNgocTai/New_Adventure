@@ -21,8 +21,6 @@ public :
     AmoObject();
     ~AmoObject();
 
-    // Xử lý sự kiện nhập từ bàn phím
-    void HandleInputAction(SDL_Event events);
 
     // Xử lý di chuyển của đạn
     void HandleMove(const int&x_border,const int&y_border);

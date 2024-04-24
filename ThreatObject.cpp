@@ -89,10 +89,6 @@ void ThreatObject :: HandleMove(const int& x_border,const int& y_border )
         rect_.y=random;
     }
 }
-void ThreatObject :: HandleInputAction(SDL_Event events)
-{
-
-}
 
 void ThreatObject :: Reset(const int& x_border, const int&y_border)
 {

@@ -18,16 +18,15 @@ public:
     MainObject();
     ~MainObject();
 
-    void HandleInputAction(SDL_Event events);
-    void HandleMove();
-    void HandleMove_Thienthach();
-    void HandleAmo(SDL_Renderer* des );
+    void HandleInputAction(SDL_Event events);// Xử lý sự kiện đầu vào (bàn phím/chuột)
+    void HandleMove();// Xử lí di chuyển vật
+    void HandleMove_Thienthach();// Xử lí di chuyển thiên thạch
+    void HandleAmo(SDL_Renderer* des );// Xử lí đạn
     void SetAmoList(std::vector<AmoObject*>amo_list){p_amo_list=amo_list;}
     std::vector<AmoObject*> GetAmoList() const {return p_amo_list;}
-    void RemoveAmo(const int &idx);
+    void RemoveAmo(const int &idx);//xóa đạn
 
 private:
-    //the hien cho su nhanh cham cua vat
     int x_val_;// gia tri tdoi theo chieu ngang(bien thien)
     int y_val_; // gia tri tdoi theo chieu doc(bien thien)
     int speed;// toc do bay
