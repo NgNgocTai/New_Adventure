@@ -1,12 +1,12 @@
-**AIR WAR**
+**SKY TROOPS**
 
 **Giới thiệu**
 
 - Họ và tên : Nguyễn Ngọc Tài
 - MSSV : 23020701
-- Lớp k68J, Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội (UET-VNU)
+- Lớp K68J, Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội (UET-VNU)
 
-Air WAR là một trò chơi bắn nhau trên không nhằm tiêu diệt hết tất cả quái vật để bảo vệ hòa bình cho thế giới. Bạn sẽ vào vai một người lính lái máy bay và đi tiêu diệt kẻ thù trên quãng đường của mình, bạn sẽ dành chiến thắng nếu có thể tiêu diệt quái vật trên đường đi và đánh bại được Boss cuối. Nên nhớ là bạn chỉ có 1 mạng khi tham gia trò chơi nên là hãy thận trọng.
+SKY TROOPS là một trò chơi bắn nhau trên không nhằm tiêu diệt hết tất cả quái vật để bảo vệ hòa bình cho thế giới. Bạn sẽ vào vai một người lính lái máy bay và đi tiêu diệt kẻ thù trên quãng đường của mình, bạn sẽ dành chiến thắng nếu có thể tiêu diệt quái vật trên đường đi và đánh bại được Boss cuối. Nên nhớ là bạn chỉ có 1 mạng khi tham gia trò chơi nên là hãy thận trọng.
 
 **Hướng dẫn tải và chạy game**
 
