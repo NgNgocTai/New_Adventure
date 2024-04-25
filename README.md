@@ -17,7 +17,7 @@ SKY TROOPS là một trò chơi bắn nhau trên không nhằm tiêu diệt hế
 
 **Mô tả về game**
 
-**Gameplay :** xem gameplay của game tại đây
+**Gameplay :** xem gameplay của game tại đây  https://youtu.be/EQJcwS-IJg0
 
 ### **Control**
 
