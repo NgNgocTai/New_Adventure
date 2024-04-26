@@ -17,9 +17,12 @@ SKY TROOPS là một trò chơi bắn nhau trên không nhằm tiêu diệt hế
 ( Hoặc các bạn có thể vào trong folder bin rồi vô folder debug rồi chạy file exe là cũng sẽ chơi được nhé )
 **Mô tả về game**
 
-**Gameplay :** xem gameplay của game tại đây  https://youtu.be/EQJcwS-IJg0
-            ** xem giải thích về mã nguồn tại đây https://www.youtube.com/watch?v=CfR8sE85g6o    
-                (Mở to âm lượng + đeo tai nghe nhé)
+**Gameplay :**
+-Xem gameplay của game tại đây  https://youtu.be/EQJcwS-IJg0  
+  
+
+-Xem giải thích về mã nguồn tại đây https://www.youtube.com/watch?v=CfR8sE85g6o  
+  (Mở to âm lượng + đeo tai nghe nhé)
 
 ### **Control**
 
