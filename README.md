@@ -14,7 +14,7 @@ SKY TROOPS là một trò chơi bắn nhau trên không nhằm tiêu diệt hế
 - Bước 2: Extract file zip vừa tải về
 - Bước 3: Sử dụng CodeBlocks để mở file project Game.cbp( nhớ là cài đầy đủ các file SDL thì mới chơi được nhé)
 - Bước 4: Vào menu và bấm Play để chơi nào
-
+( Hoặc các bạn có thể vào trong bin rồi vô folder debug rồi chạy file exe là cũng sẽ chơi được nhé )
 **Mô tả về game**
 
 **Gameplay :** xem gameplay của game tại đây  https://youtu.be/EQJcwS-IJg0
